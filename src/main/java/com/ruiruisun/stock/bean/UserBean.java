@@ -1,4 +1,4 @@
-package com.ruiruisun.stock.dao;
+package com.ruiruisun.stock.bean;
 
 import lombok.Data;
 
