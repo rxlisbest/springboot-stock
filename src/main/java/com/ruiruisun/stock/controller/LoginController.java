@@ -4,14 +4,15 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.ruiruisun.stock.bean.UserBean;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.ruiruisun.stock.service.UserService;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("login")
-public class LoginController {
+public class LoginController
+{
+    private UserService userService;
+
     @RequestMapping("/index")
     public String index(){
         try {
@@ -34,5 +35,10 @@ public class LoginController {
     public String test(@RequestBody UserBean UserBean){
         System.out.println(UserBean);
         return UserBean.getUsername();
+    }
+
+    @RequestMapping("/user/{id}")
+    public String user(@PathVariable int id){
+        return userService.Sel(id).toString();
     }
 }

@@ -18,4 +18,4 @@ logging:
     com:
       ruiruisun:
         stock:
-          mapper : debug
+          entity : debug

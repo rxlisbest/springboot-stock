@@ -2,8 +2,9 @@ package com.ruiruisun.stock;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
-//@ComponentScan(value="com.ruiruisun.stock.mapper")
+//@MapperScan("com.ruiruisun.stock.mapper")
 @SpringBootApplication
 public class StockApplication {
 
