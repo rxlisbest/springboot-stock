@@ -39,6 +39,6 @@ public class LoginController
 
     @RequestMapping("/user/{id}")
     public String user(@PathVariable int id){
-        return userService.Sel(id).toString();
+        return userService.Sel(1).toString();
     }
 }
