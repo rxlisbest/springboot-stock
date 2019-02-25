@@ -7,10 +7,13 @@ import com.ruiruisun.stock.bean.UserBean;
 import com.ruiruisun.stock.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+
 @RestController
 @RequestMapping("login")
 public class LoginController
 {
+    @Resource
     private UserService userService;
 
     @RequestMapping("/index")
