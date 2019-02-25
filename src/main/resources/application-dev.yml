@@ -7,6 +7,9 @@ spring:
     password: test
     url: jdbc:mysql://localhost/stock?useSSL=false&useUnicode=true&characterEncoding=UTF8&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
+  flyway:
+    locations: classpath:db/migration
+    baseline-on-migrate: true
 
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
