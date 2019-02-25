@@ -5,17 +5,17 @@ import lombok.Data;
 @Data
 public class User {
     private int id;
-    private String userName;
-    private String passWord;
-    private String realName;
+    private String name;
+    private String username;
+    private String password;
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", passWord='" + passWord + '\'' +
-                ", realName='" + realName + '\'' +
+                ", userName='" + name + '\'' +
+                ", passWord='" + username + '\'' +
+                ", realName='" + password + '\'' +
                 '}';
     }
 }

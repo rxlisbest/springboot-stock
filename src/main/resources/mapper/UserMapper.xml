@@ -4,9 +4,9 @@
 
     <resultMap id="BaseResultMap" type="com.ruiruisun.stock.entity.User">
         <result column="id" jdbcType="INTEGER" property="id" javaType="int" />
-        <result column="userName" jdbcType="VARCHAR" property="userName" javaType="string" />
-        <result column="passWord" jdbcType="VARCHAR" property="passWord" javaType="string" />
-        <result column="realName" jdbcType="VARCHAR" property="realName" javaType="string" />
+        <result column="userName" jdbcType="VARCHAR" property="username" javaType="string" />
+        <result column="passWord" jdbcType="VARCHAR" property="password" javaType="string" />
+        <result column="realName" jdbcType="VARCHAR" property="name" javaType="string" />
     </resultMap>
 
     <select id="Sel" resultType="com.ruiruisun.stock.entity.User">
