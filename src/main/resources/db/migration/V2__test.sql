@@ -1,4 +1,4 @@
-use testdb;
+use stock;
 
 CREATE TABLE person (
   id int(11) NOT NULL AUTO_INCREMENT,
