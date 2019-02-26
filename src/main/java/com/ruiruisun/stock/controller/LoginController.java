@@ -17,7 +17,7 @@ public class LoginController
     @Resource
     private UserService userService;
 
-    @RequestMapping("/index")
+    @PostMapping("/index")
     public String index(){
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
@@ -28,8 +28,8 @@ public class LoginController
                     .sign(algorithm);
             return token;
         } catch (JWTCreationException exception){
+            return exception.getMessage();
             //Invalid Signing configuration / Couldn't convert Claims.
-            return "123";
         }
     }
 
@@ -42,7 +42,9 @@ public class LoginController
     }
 
     @RequestMapping("/user/{id}")
+    @ResponseBody
     public User user(@PathVariable int id){
+        System.out.println(userService.Sel(id));
         return userService.Sel(id);
     }
 }
