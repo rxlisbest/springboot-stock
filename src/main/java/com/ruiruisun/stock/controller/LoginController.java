@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.ruiruisun.stock.bean.UserBean;
+import com.ruiruisun.stock.entity.User;
 import com.ruiruisun.stock.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +42,7 @@ public class LoginController
     }
 
     @RequestMapping("/user/{id}")
-    public String user(@PathVariable int id){
-        return userService.Sel(id).toString();
+    public User user(@PathVariable int id){
+        return userService.Sel(id);
     }
 }

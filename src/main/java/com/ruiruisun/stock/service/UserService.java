@@ -11,6 +11,8 @@ public class UserService {
     UserMapper userMapper;
 
     public User Sel(int id) {
-        return userMapper.Sel(id);
+        User t = null;
+        t = userMapper.Sel(id);
+        return t;
     }
 }

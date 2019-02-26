@@ -30,7 +30,8 @@ CREATE TABLE IF NOT EXISTS  `goods` (
   `unit` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '单位',
   `create_time` BIGINT(20) NOT NULL DEFAULT 0 COMMENT '创建时间',
   `update_time` BIGINT(20) NOT NULL DEFAULT 0 COMMENT '编辑时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  INDEX category_id (category_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='商品表';
 
 -- 商品入库表
@@ -42,7 +43,8 @@ CREATE TABLE IF NOT EXISTS  `goods_log` (
   `amount` DECIMAL(8,2) NOT NULL DEFAULT 0.00 COMMENT '数量',
   `create_time` BIGINT(20) NOT NULL DEFAULT 0 COMMENT '创建时间',
   `update_time` BIGINT(20) NOT NULL DEFAULT 0 COMMENT '编辑时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  INDEX goods_id (goods_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='商品入库表';
 
 -- 订单表
@@ -52,7 +54,8 @@ CREATE TABLE IF NOT EXISTS  `order` (
   `total` DECIMAL(8,2) NOT NULL DEFAULT 0.00 COMMENT '总价',
   `create_time` BIGINT(20) NOT NULL DEFAULT 0 COMMENT '创建时间',
   `update_time` BIGINT(20) NOT NULL DEFAULT 0 COMMENT '编辑时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  INDEX buyer_id (buyer_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='订单表';
 
 -- 订单商品表
@@ -66,7 +69,9 @@ CREATE TABLE IF NOT EXISTS  `order_goods` (
   `unit` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '单位',
   `create_time` BIGINT(20) NOT NULL DEFAULT 0 COMMENT '创建时间',
   `update_time` BIGINT(20) NOT NULL DEFAULT 0 COMMENT '编辑时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  INDEX goods_id (goods_id),
+  INDEX order_id (order_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='订单商品表';
 
 -- 客户表
