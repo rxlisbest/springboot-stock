@@ -7,15 +7,12 @@ import com.ruiruisun.stock.bean.UserBean;
 import com.ruiruisun.stock.entity.User;
 import com.ruiruisun.stock.exception.NotFoundException;
 import com.ruiruisun.stock.service.UserService;
-import org.springframework.boot.web.server.ErrorPage;
+import com.ruiruisun.stock.util.LocaleMessageUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-import java.rmi.ServerException;
 
 @RestController
 @RequestMapping("login")
@@ -24,7 +21,15 @@ public class LoginController {
     private UserService userService;
 
     @PostMapping("/index")
-    public String index() {
+    public String index(String username, String password) throws Exception  {
+
+        String msg3 = LocaleMessageUtil.getMsg("welcome");
+        System.out.println(msg3);
+
+        User user = userService.findByUsername(username);
+        if (user == null) {
+            throw new NotFoundException("用户不存在");
+        }
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             String token = JWT.create()
@@ -53,6 +58,6 @@ public class LoginController {
         if (null == null) {
             throw new NotFoundException("test");
         }
-        return new ResponseEntity<Object>(userService.Sel(id), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<Object>(userService.findByUsername(id + ""), HttpStatus.NOT_FOUND);
     }
 }

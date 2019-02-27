@@ -10,9 +10,9 @@ public class UserService {
     @Autowired
     UserMapper userMapper;
 
-    public User Sel(int id) {
-        User t = null;
-        t = userMapper.Sel(id);
-        return t;
+    public User findByUsername(String username) {
+        User User = null;
+        User = userMapper.findByUsername(username);
+        return User;
     }
 }

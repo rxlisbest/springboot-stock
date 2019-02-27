@@ -13,35 +13,35 @@ import java.util.Date;
 @ControllerAdvice
 @ResponseBody
 public class StockExceptionHandler {
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({NotFoundException.class})
     public ResponseEntity<Object> ExceptionHandler(HttpServletRequest request,NotFoundException exception) {
-        ResponseEntity<Object> ResponseEntity = null;
+        ResponseEntity<Object> responseEntity = null;
         if (exception.getMessage() == null || exception.getMessage().length() == 0) {
-            ResponseEntity = new ResponseEntity<Object>(setExceptionBean(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(), request.getRequestURI()), HttpStatus.NOT_FOUND);
+            responseEntity = new ResponseEntity<Object>(setExceptionBean(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(), request.getRequestURI()), HttpStatus.NOT_FOUND);
         } else {
-            ResponseEntity = new ResponseEntity<Object>(setExceptionBean(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(), exception.getMessage(), request.getRequestURI()), HttpStatus.NOT_FOUND);
+            responseEntity = new ResponseEntity<Object>(setExceptionBean(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(), exception.getMessage(), request.getRequestURI()), HttpStatus.NOT_FOUND);
         }
-        return ResponseEntity;
+        return responseEntity;
     }
 
     private ExceptionBean setExceptionBean(int status, String error, String path) {
-        ExceptionBean ExceptionBean = new ExceptionBean();
-        ExceptionBean.setTimestamp(new Date().toString());
-        ExceptionBean.setStatus(status);
-        ExceptionBean.setError(error);
-        ExceptionBean.setMessage("No message available");
-        ExceptionBean.setPath(path);
-        return ExceptionBean;
+        ExceptionBean exceptionBean = new ExceptionBean();
+        exceptionBean.setTimestamp(new Date().toString());
+        exceptionBean.setStatus(status);
+        exceptionBean.setError(error);
+        exceptionBean.setMessage("No message available");
+        exceptionBean.setPath(path);
+        return exceptionBean;
     }
 
     private ExceptionBean setExceptionBean(int status, String error, String message, String path) {
-        ExceptionBean ExceptionBean = new ExceptionBean();
-        ExceptionBean.setTimestamp(new Date().toString());
-        ExceptionBean.setStatus(status);
-        ExceptionBean.setError(error);
-        ExceptionBean.setMessage(message);
-        ExceptionBean.setPath(path);
-        return ExceptionBean;
+        ExceptionBean exceptionBean = new ExceptionBean();
+        exceptionBean.setTimestamp(new Date().toString());
+        exceptionBean.setStatus(status);
+        exceptionBean.setError(error);
+        exceptionBean.setMessage(message);
+        exceptionBean.setPath(path);
+        return exceptionBean;
     }
 }
