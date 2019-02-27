@@ -5,20 +5,26 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.ruiruisun.stock.bean.UserBean;
 import com.ruiruisun.stock.entity.User;
+import com.ruiruisun.stock.exception.NotFoundException;
 import com.ruiruisun.stock.service.UserService;
+import org.springframework.boot.web.server.ErrorPage;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.rmi.ServerException;
 
 @RestController
 @RequestMapping("login")
-public class LoginController
-{
+public class LoginController {
     @Resource
     private UserService userService;
 
     @PostMapping("/index")
-    public String index(){
+    public String index() {
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             String token = JWT.create()
@@ -27,24 +33,24 @@ public class LoginController
                     .withIssuer("auth0")
                     .sign(algorithm);
             return token;
-        } catch (JWTCreationException exception){
+        } catch (JWTCreationException exception) {
             return exception.getMessage();
             //Invalid Signing configuration / Couldn't convert Claims.
         }
     }
 
-
     @RequestMapping("/test")
     @ResponseBody
-    public String test(@RequestBody UserBean UserBean){
+    public String test(@RequestBody UserBean UserBean) {
         System.out.println(UserBean);
         return UserBean.getUsername();
     }
 
     @RequestMapping("/user/{id}")
     @ResponseBody
-    public User user(@PathVariable int id){
-        System.out.println(userService.Sel(id));
-        return userService.Sel(id);
+    public ResponseEntity user(@PathVariable int id) throws NotFoundException {
+//        throw new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR);
+        throw new NotFoundException();
+//        return new ResponseEntity<Object>(userService.Sel(id), HttpStatus.NOT_FOUND);
     }
 }
