@@ -48,9 +48,11 @@ public class LoginController {
 
     @RequestMapping("/user/{id}")
     @ResponseBody
-    public ResponseEntity user(@PathVariable int id) throws NotFoundException {
+    public ResponseEntity user(@PathVariable int id) throws Exception {
 //        throw new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR);
-        throw new NotFoundException();
-//        return new ResponseEntity<Object>(userService.Sel(id), HttpStatus.NOT_FOUND);
+        if (null == null) {
+            throw new NotFoundException("test");
+        }
+        return new ResponseEntity<Object>(userService.Sel(id), HttpStatus.NOT_FOUND);
     }
 }
