@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruiruisun.stock.mapper.GoodsCategoryMapper">
+
+    <resultMap id="BaseResultMap" type="com.ruiruisun.stock.entity.GoodsCategory">
+        <result column="id" jdbcType="INTEGER" property="id" javaType="int" />
+        <result column="name" jdbcType="VARCHAR" property="username" javaType="string" />
+        <result column="create_time" jdbcType="BIGINT" property="password" javaType="int" />
+        <result column="update_time" jdbcType="BIGINT" property="name" javaType="int" />
+    </resultMap>
+
+    <select id="all" resultType="com.ruiruisun.stock.entity.GoodsCategory">
+        select * from goods_category
+    </select>
+</mapper>

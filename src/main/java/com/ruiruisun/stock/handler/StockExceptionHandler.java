@@ -1,10 +1,7 @@
 package com.ruiruisun.stock.handler;
 
 import com.ruiruisun.stock.bean.ExceptionBean;
-import com.ruiruisun.stock.exception.BadRequestException;
-import com.ruiruisun.stock.exception.ForbiddenException;
-import com.ruiruisun.stock.exception.InternalServerErrorException;
-import com.ruiruisun.stock.exception.NotFoundException;
+import com.ruiruisun.stock.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +12,18 @@ import java.util.Date;
 @ControllerAdvice
 @ResponseBody
 public class StockExceptionHandler {
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler({UnauthorizedException.class})
+    public ResponseEntity<Object> UnauthorizedExceptionHandler(HttpServletRequest request, UnauthorizedException exception) {
+        ResponseEntity<Object> responseEntity = null;
+        if (exception.getMessage() == null || exception.getMessage().length() == 0) {
+            responseEntity = new ResponseEntity<Object>(setExceptionBean(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase(), request.getRequestURI()), HttpStatus.UNAUTHORIZED);
+        } else {
+            responseEntity = new ResponseEntity<Object>(setExceptionBean(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase(), exception.getMessage(), request.getRequestURI()), HttpStatus.UNAUTHORIZED);
+        }
+        return responseEntity;
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({BadRequestException.class})
     public ResponseEntity<Object> BadRequestExceptionHandler(HttpServletRequest request,BadRequestException exception) {

@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS  `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='用户表';
 
 -- 商品分类表
-CREATE TABLE IF NOT EXISTS  `category` (
+CREATE TABLE IF NOT EXISTS  `goods_category` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '名称',
   `create_time` BIGINT(20) NOT NULL DEFAULT 0 COMMENT '创建时间',
@@ -24,14 +24,14 @@ CREATE TABLE IF NOT EXISTS  `category` (
 CREATE TABLE IF NOT EXISTS  `goods` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '名称',
-  `category_id` INT(11) NOT NULL DEFAULT 0 COMMENT '商品分类ID',
+  `goods_category_id` INT(11) NOT NULL DEFAULT 0 COMMENT '商品分类ID',
   `price` DECIMAL(8,2) NOT NULL DEFAULT 0.00 COMMENT '价格',
   `amount` DECIMAL(8,2) NOT NULL DEFAULT 0.00 COMMENT '数量',
   `unit` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '单位',
   `create_time` BIGINT(20) NOT NULL DEFAULT 0 COMMENT '创建时间',
   `update_time` BIGINT(20) NOT NULL DEFAULT 0 COMMENT '编辑时间',
   PRIMARY KEY (`id`),
-  INDEX category_id (category_id)
+  INDEX goods_category_id (goods_category_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='商品表';
 
 -- 商品入库表

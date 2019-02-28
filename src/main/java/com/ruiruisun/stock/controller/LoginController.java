@@ -51,28 +51,10 @@ public class LoginController {
                     .withClaim("id", user.getId())
                     .withClaim("username", user.getUsername())
                     .withClaim("name", user.getName())
-                    .withIssuer("auth0")
                     .sign(algorithm);
             return token;
         } catch (JWTCreationException exception) {
             throw new InternalServerErrorException(exception.getMessage());
         }
-    }
-
-    @RequestMapping("/test")
-    @ResponseBody
-    public String test(@RequestBody UserBean UserBean) {
-        System.out.println(UserBean);
-        return UserBean.getUsername();
-    }
-
-    @RequestMapping("/user/{id}")
-    @ResponseBody
-    public ResponseEntity user(@PathVariable int id) throws Exception {
-//        throw new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR);
-        if (null == null) {
-            throw new NotFoundException("test");
-        }
-        return new ResponseEntity<Object>(userService.findByUsername(id + ""), HttpStatus.NOT_FOUND);
     }
 }
