@@ -1,4 +1,4 @@
-package com.ruiruisun.stock.util;
+package com.ruiruisun.stock.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Locale;
 
 @Component
-public class LocaleMessageUtil {
+public class LocaleMessageUtils {
 
     private static MessageSource messageSource;
 
@@ -28,6 +28,6 @@ public class LocaleMessageUtil {
 
     @Autowired(required = true)
     public void setMessageSource(MessageSource messageSource) {
-        LocaleMessageUtil.messageSource = messageSource;
+        LocaleMessageUtils.messageSource = messageSource;
     }
 }

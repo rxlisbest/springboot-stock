@@ -1,8 +1,10 @@
 package com.ruiruisun.stock.handler;
 
 import com.ruiruisun.stock.bean.ExceptionBean;
+import com.ruiruisun.stock.exception.BadRequestException;
+import com.ruiruisun.stock.exception.ForbiddenException;
+import com.ruiruisun.stock.exception.InternalServerErrorException;
 import com.ruiruisun.stock.exception.NotFoundException;
-import org.apache.catalina.connector.Request;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,14 +15,50 @@ import java.util.Date;
 @ControllerAdvice
 @ResponseBody
 public class StockExceptionHandler {
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({BadRequestException.class})
+    public ResponseEntity<Object> BadRequestExceptionHandler(HttpServletRequest request,BadRequestException exception) {
+        ResponseEntity<Object> responseEntity = null;
+        if (exception.getMessage() == null || exception.getMessage().length() == 0) {
+            responseEntity = new ResponseEntity<Object>(setExceptionBean(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), request.getRequestURI()), HttpStatus.BAD_REQUEST);
+        } else {
+            responseEntity = new ResponseEntity<Object>(setExceptionBean(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), exception.getMessage(), request.getRequestURI()), HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
+    }
+
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({NotFoundException.class})
-    public ResponseEntity<Object> ExceptionHandler(HttpServletRequest request,NotFoundException exception) {
+    public ResponseEntity<Object> NotFoundExceptionHandler(HttpServletRequest request,NotFoundException exception) {
         ResponseEntity<Object> responseEntity = null;
         if (exception.getMessage() == null || exception.getMessage().length() == 0) {
             responseEntity = new ResponseEntity<Object>(setExceptionBean(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(), request.getRequestURI()), HttpStatus.NOT_FOUND);
         } else {
             responseEntity = new ResponseEntity<Object>(setExceptionBean(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(), exception.getMessage(), request.getRequestURI()), HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
+    }
+
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler({ForbiddenException.class})
+    public ResponseEntity<Object> ForbiddenExceptionHandler(HttpServletRequest request,ForbiddenException exception) {
+        ResponseEntity<Object> responseEntity = null;
+        if (exception.getMessage() == null || exception.getMessage().length() == 0) {
+            responseEntity = new ResponseEntity<Object>(setExceptionBean(HttpStatus.FORBIDDEN.value(), HttpStatus.FORBIDDEN.getReasonPhrase(), request.getRequestURI()), HttpStatus.FORBIDDEN);
+        } else {
+            responseEntity = new ResponseEntity<Object>(setExceptionBean(HttpStatus.FORBIDDEN.value(), HttpStatus.FORBIDDEN.getReasonPhrase(), exception.getMessage(), request.getRequestURI()), HttpStatus.FORBIDDEN);
+        }
+        return responseEntity;
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler({InternalServerErrorException.class})
+    public ResponseEntity<Object> InternalServerErrorExceptionHandler(HttpServletRequest request, InternalServerErrorException exception) {
+        ResponseEntity<Object> responseEntity = null;
+        if (exception.getMessage() == null || exception.getMessage().length() == 0) {
+            responseEntity = new ResponseEntity<Object>(setExceptionBean(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), request.getRequestURI()), HttpStatus.INTERNAL_SERVER_ERROR);
+        } else {
+            responseEntity = new ResponseEntity<Object>(setExceptionBean(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), exception.getMessage(), request.getRequestURI()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
