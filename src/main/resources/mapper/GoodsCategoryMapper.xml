@@ -24,4 +24,8 @@
     <update id="update" parameterType="com.ruiruisun.stock.entity.GoodsCategory">
         UPDATE `goods_category` SET `name` = #{name}, `update_time` = unix_timestamp(now()) WHERE id = #{id}
     </update>
+
+    <delete id="delete" parameterType="com.ruiruisun.stock.entity.GoodsCategory">
+        DELETE FROM `goods_category` WHERE id = #{id}
+    </delete>
 </mapper>

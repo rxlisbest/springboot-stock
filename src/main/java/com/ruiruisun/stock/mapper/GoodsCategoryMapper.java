@@ -15,4 +15,6 @@ public interface GoodsCategoryMapper {
     int create(GoodsCategory goodsCategory);
 
     int update(GoodsCategory goodsCategory);
+
+    int delete(GoodsCategory goodsCategory);
 }

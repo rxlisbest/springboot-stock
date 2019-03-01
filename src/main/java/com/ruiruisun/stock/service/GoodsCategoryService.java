@@ -43,4 +43,9 @@ public class GoodsCategoryService {
         int rows = goodsCategoryMapper.update(goodsCategory);
         return rows;
     }
+
+    public int delete(GoodsCategory goodsCategory) {
+        int rows = goodsCategoryMapper.delete(goodsCategory);
+        return rows;
+    }
 }

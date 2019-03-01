@@ -59,4 +59,14 @@ public class GoodsCategoryController {
         int rows = goodsCategoryService.update(goodsCategory);
         return rows;
     }
+
+    @DeleteMapping("/delete/{id}")
+    public int delete(HttpServletRequest request, @PathVariable int id) throws Exception {
+        GoodsCategory goodsCategory = goodsCategoryService.findOne(id);
+        if (goodsCategory == null) {
+            throw new NotFoundException(LocaleMessageUtils.getMsg("goods_category.not_exists"));
+        }
+        int rows = goodsCategoryService.delete(goodsCategory);
+        return rows;
+    }
 }
