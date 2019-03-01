@@ -1,6 +1,5 @@
 package com.ruiruisun.stock.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ruiruisun.stock.entity.GoodsCategory;
 import com.ruiruisun.stock.exception.BadRequestException;
