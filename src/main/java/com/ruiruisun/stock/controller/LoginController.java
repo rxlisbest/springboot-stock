@@ -3,6 +3,7 @@ package com.ruiruisun.stock.controller;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.ruiruisun.stock.bean.AuthorizationBean;
 import com.ruiruisun.stock.bean.UserBean;
 import com.ruiruisun.stock.entity.User;
 import com.ruiruisun.stock.exception.BadRequestException;
@@ -11,6 +12,7 @@ import com.ruiruisun.stock.exception.InternalServerErrorException;
 import com.ruiruisun.stock.exception.NotFoundException;
 import com.ruiruisun.stock.service.UserService;
 import com.ruiruisun.stock.utils.LocaleMessageUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.DigestUtils;
@@ -24,6 +26,9 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginController {
     @Resource
     private UserService userService;
+
+    @Autowired
+    AuthorizationBean authorizationBean;
 
     @PostMapping("/index")
     public String index(HttpServletRequest request) throws Exception {
@@ -46,7 +51,7 @@ public class LoginController {
             throw new ForbiddenException(LocaleMessageUtils.getMsg("login.password_error"));
         }
         try {
-            Algorithm algorithm = Algorithm.HMAC256("secret");
+            Algorithm algorithm = Algorithm.HMAC256(authorizationBean.getSecret());
             String token = JWT.create()
                     .withClaim("id", user.getId())
                     .withClaim("username", user.getUsername())
