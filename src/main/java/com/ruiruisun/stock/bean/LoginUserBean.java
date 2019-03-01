@@ -3,7 +3,7 @@ package com.ruiruisun.stock.bean;
 import lombok.Data;
 
 @Data
-public class UserBean {
+public class LoginUserBean {
     private String username;
     private String password;
 

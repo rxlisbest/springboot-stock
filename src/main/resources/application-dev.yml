@@ -29,3 +29,10 @@ logging:
   level:
     com.ruiruisun.stock.mapper: DEBUG
     org.springframework.jdbc.core.JdbcTemplate: DEBUG
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count==countSql
+  page-size-zero: true
