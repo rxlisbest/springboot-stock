@@ -9,10 +9,19 @@
         <result column="update_time" jdbcType="BIGINT" property="name" javaType="int" />
     </resultMap>
 
-    <select id="all" resultType="com.ruiruisun.stock.entity.GoodsCategory">
+    <select id="findAll" resultType="com.ruiruisun.stock.entity.GoodsCategory">
         select * from goods_category
     </select>
+
+    <select id="findOne" resultType="com.ruiruisun.stock.entity.GoodsCategory">
+        select * from goods_category WHERE id = #{id}
+    </select>
+
     <insert id="create" parameterType="com.ruiruisun.stock.entity.GoodsCategory" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO `goods_category` (`name`, `create_time`, `update_time`) VALUES (#{name}, unix_timestamp(now()), 0)
     </insert>
+
+    <update id="update" parameterType="com.ruiruisun.stock.entity.GoodsCategory">
+        UPDATE `goods_category` SET `name` = #{name}, `update_time` = unix_timestamp(now()) WHERE id = #{id}
+    </update>
 </mapper>

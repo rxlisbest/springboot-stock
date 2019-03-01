@@ -17,13 +17,18 @@ public class GoodsCategoryService {
 
     public List<GoodsCategory> findAll() {
         List<GoodsCategory> goodsCategory = new ArrayList<>();
-        goodsCategory = goodsCategoryMapper.all();
+        goodsCategory = goodsCategoryMapper.findAll();
+        return goodsCategory;
+    }
+
+    public GoodsCategory findOne(int id) {
+        GoodsCategory goodsCategory = goodsCategoryMapper.findOne(id);
         return goodsCategory;
     }
 
     public PageInfo<GoodsCategory> findPage(int page, int pageSize) {
         PageHelper.startPage(page, pageSize);
-        List<GoodsCategory> goodsCategoryList = goodsCategoryMapper.all();
+        List<GoodsCategory> goodsCategoryList = goodsCategoryMapper.findAll();
         PageInfo<GoodsCategory> pageInfo = new PageInfo<>(goodsCategoryList);
         return pageInfo;
     }
@@ -32,5 +37,10 @@ public class GoodsCategoryService {
         goodsCategoryMapper.create(goodsCategory);
         int id = goodsCategory.getId();
         return id;
+    }
+
+    public int update(GoodsCategory goodsCategory) {
+        int rows = goodsCategoryMapper.update(goodsCategory);
+        return rows;
     }
 }

@@ -8,7 +8,11 @@ import java.util.List;
 @Mapper
 public interface GoodsCategoryMapper {
 
-    List<GoodsCategory> all();
+    List<GoodsCategory> findAll();
+
+    GoodsCategory findOne(int id);
 
     int create(GoodsCategory goodsCategory);
+
+    int update(GoodsCategory goodsCategory);
 }
