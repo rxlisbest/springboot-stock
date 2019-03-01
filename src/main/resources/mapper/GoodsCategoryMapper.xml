@@ -12,4 +12,7 @@
     <select id="all" resultType="com.ruiruisun.stock.entity.GoodsCategory">
         select * from goods_category
     </select>
+    <insert id="create" parameterType="com.ruiruisun.stock.entity.GoodsCategory" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `goods_category` (`name`, `create_time`, `update_time`) VALUES (#{name}, unix_timestamp(now()), 0)
+    </insert>
 </mapper>

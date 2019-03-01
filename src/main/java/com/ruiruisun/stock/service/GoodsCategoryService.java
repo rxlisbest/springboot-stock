@@ -15,7 +15,7 @@ public class GoodsCategoryService {
     @Autowired
     GoodsCategoryMapper goodsCategoryMapper;
 
-    public List<GoodsCategory> all() {
+    public List<GoodsCategory> findAll() {
         List<GoodsCategory> goodsCategory = new ArrayList<>();
         goodsCategory = goodsCategoryMapper.all();
         return goodsCategory;
@@ -26,5 +26,11 @@ public class GoodsCategoryService {
         List<GoodsCategory> goodsCategoryList = goodsCategoryMapper.all();
         PageInfo<GoodsCategory> pageInfo = new PageInfo<>(goodsCategoryList);
         return pageInfo;
+    }
+
+    public int create(GoodsCategory goodsCategory) {
+        goodsCategoryMapper.create(goodsCategory);
+        int id = goodsCategory.getId();
+        return id;
     }
 }
