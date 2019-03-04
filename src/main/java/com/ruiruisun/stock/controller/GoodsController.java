@@ -43,11 +43,22 @@ public class GoodsController {
 
     @PostMapping(value = "/create")
     public int create(@RequestBody Goods request) throws Exception {
-        int goodsCategoryId = request.getGoods_category_id();
         String name = request.getName();
+        Integer goodsCategoryId = request.getGoods_category_id();
+        Float price = request.getPrice();
+        Float amount = request.getAmount();
         String unit = request.getUnit();
         if (name == null || name.length() == 0) {
             throw new BadRequestException(LocaleMessageUtils.getMsg("goods.name_empty"));
+        }
+        if (goodsCategoryId == null || goodsCategoryId == 0) {
+            throw new BadRequestException(LocaleMessageUtils.getMsg("goods.goods_category_id_empty"));
+        }
+        if (price == null || price == 0) {
+            throw new BadRequestException(LocaleMessageUtils.getMsg("goods.price_empty"));
+        }
+        if (amount == null || amount == 0) {
+            throw new BadRequestException(LocaleMessageUtils.getMsg("goods.amount_empty"));
         }
         if (unit == null || unit.length() == 0) {
             throw new BadRequestException(LocaleMessageUtils.getMsg("goods.unit_empty"));
@@ -60,9 +71,21 @@ public class GoodsController {
     @PutMapping("/update/{id}")
     public int update(@RequestBody Goods request, @PathVariable int id) throws Exception {
         String name = request.getName();
+        Integer goodsCategoryId = request.getGoods_category_id();
+        Float price = request.getPrice();
+        Float amount = request.getAmount();
         String unit = request.getUnit();
         if (name == null || name.length() == 0) {
             throw new BadRequestException(LocaleMessageUtils.getMsg("goods.name_empty"));
+        }
+        if (goodsCategoryId == null || goodsCategoryId == 0) {
+            throw new BadRequestException(LocaleMessageUtils.getMsg("goods.goods_category_id_empty"));
+        }
+        if (price == null || price == 0) {
+            throw new BadRequestException(LocaleMessageUtils.getMsg("goods.price_empty"));
+        }
+        if (amount == null || amount == 0) {
+            throw new BadRequestException(LocaleMessageUtils.getMsg("goods.amount_empty"));
         }
         if (unit == null || unit.length() == 0) {
             throw new BadRequestException(LocaleMessageUtils.getMsg("goods.unit_empty"));
