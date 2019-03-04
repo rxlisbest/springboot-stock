@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruiruisun.stock.mapper.BuyerMapper">
+
+    <resultMap id="BuyerMap" type="com.ruiruisun.stock.entity.Buyer">
+        <result column="id" jdbcType="INTEGER" property="id" javaType="int" />
+        <result column="name" jdbcType="VARCHAR" property="name" javaType="string" />
+        <result column="phone" jdbcType="VARCHAR" property="unit" javaType="string" />
+        <result column="create_time" jdbcType="BIGINT" property="create_time" javaType="int" />
+        <result column="update_time" jdbcType="BIGINT" property="update_time" javaType="int" />
+    </resultMap>
+
+    <select id="findAll" resultType="com.ruiruisun.stock.entity.Buyer">
+        select * from buyer
+    </select>
+
+    <select id="findOne" resultType="com.ruiruisun.stock.entity.Buyer">
+        select * from buyer WHERE id = #{id}
+    </select>
+
+    <insert id="create" parameterType="com.ruiruisun.stock.entity.Buyer" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `buyer` (`name`, `phone`, `create_time`, `update_time`) VALUES (#{name}, #{phone}, unix_timestamp(now()), 0)
+    </insert>
+
+    <update id="update" parameterType="com.ruiruisun.stock.entity.Buyer">
+        UPDATE `buyer` SET `name` = #{name}, `phone` = #{phone}, `update_time` = unix_timestamp(now()) WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="com.ruiruisun.stock.entity.Buyer">
+        DELETE FROM `buyer` WHERE id = #{id}
+    </delete>
+</mapper>

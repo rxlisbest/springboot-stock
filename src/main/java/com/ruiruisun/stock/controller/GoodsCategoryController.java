@@ -1,12 +1,14 @@
 package com.ruiruisun.stock.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.ruiruisun.stock.bean.PaginationBean;
 import com.ruiruisun.stock.entity.Goods;
 import com.ruiruisun.stock.entity.GoodsCategory;
 import com.ruiruisun.stock.exception.BadRequestException;
 import com.ruiruisun.stock.exception.NotFoundException;
 import com.ruiruisun.stock.service.GoodsCategoryService;
 import com.ruiruisun.stock.utils.LocaleMessageUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,9 +21,15 @@ public class GoodsCategoryController {
     @Resource
     private GoodsCategoryService goodsCategoryService;
 
+    @Autowired
+    PaginationBean paginationBean;
+
     @GetMapping("/index")
-    public PageInfo<GoodsCategory> index(HttpServletRequest request) throws Exception {
-        PageInfo<GoodsCategory> goodsCategoryList = goodsCategoryService.findPage(1, 2);
+    public PageInfo<GoodsCategory> index(HttpServletRequest request, Integer page) throws Exception {
+        if (page == null) {
+            page = 1;
+        }
+        PageInfo<GoodsCategory> goodsCategoryList = goodsCategoryService.findPage(page, paginationBean.getPageSize());
         return goodsCategoryList;
     }
 
