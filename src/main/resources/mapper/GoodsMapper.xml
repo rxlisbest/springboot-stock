@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruiruisun.stock.mapper.GoodsMapper">
+
+    <resultMap id="GoodsMap" type="com.ruiruisun.stock.entity.Goods">
+        <result column="id" jdbcType="INTEGER" property="id" javaType="int" />
+        <result column="name" jdbcType="VARCHAR" property="name" javaType="string" />
+        <result column="goods_category_id" jdbcType="INTEGER" property="id" javaType="int" />
+        <result column="price" jdbcType="FLOAT" property="price" javaType="float" />
+        <result column="amount" jdbcType="FLOAT" property="amount" javaType="float" />
+        <result column="unit" jdbcType="VARCHAR" property="unit" javaType="string" />
+        <result column="create_time" jdbcType="BIGINT" property="create_time" javaType="int" />
+        <result column="update_time" jdbcType="BIGINT" property="update_time" javaType="int" />
+    </resultMap>
+
+    <select id="findAll" resultType="com.ruiruisun.stock.entity.Goods">
+        select * from goods
+    </select>
+
+    <select id="findOne" resultType="com.ruiruisun.stock.entity.Goods">
+        select * from goods WHERE id = #{id}
+    </select>
+
+    <insert id="create" parameterType="com.ruiruisun.stock.entity.Goods" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `goods` (`name`, `goods_category_id`, `price`, `amount`, `unit`, `create_time`, `update_time`) VALUES (#{name}, #{goods_category_id}, #{price}, #{amount}, #{unit}, unix_timestamp(now()), 0)
+    </insert>
+
+    <update id="update" parameterType="com.ruiruisun.stock.entity.Goods">
+        UPDATE `goods` SET `name` = #{name}, `goods_category_id` = #{goods_category_id}, `price` = #{price}, `amount` = #{amount}, `unit` = #{unit}, `update_time` = unix_timestamp(now()) WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="com.ruiruisun.stock.entity.Goods">
+        DELETE FROM `goods` WHERE id = #{id}
+    </delete>
+</mapper>
