@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("goods_category")
+@RequestMapping("goods_categories")
 public class GoodsCategoryController {
     @Resource
     private GoodsCategoryService goodsCategoryService;
