@@ -10,6 +10,8 @@ public interface BuyerMapper {
 
     List<Buyer> findAll();
 
+    List<Buyer> findAllByName(String name);
+
     Buyer findOne(int id);
 
     int create(Buyer buyer);

@@ -14,6 +14,10 @@
         select * from buyer
     </select>
 
+    <select id="findAllByName" resultType="com.ruiruisun.stock.entity.Buyer">
+        select * from buyer WHERE `name` LIKE CONCAT('%', #{name}, '%')
+    </select>
+
     <select id="findOne" resultType="com.ruiruisun.stock.entity.Buyer">
         select * from buyer WHERE id = #{id}
     </select>

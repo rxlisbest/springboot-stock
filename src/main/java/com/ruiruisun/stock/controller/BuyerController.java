@@ -25,10 +25,12 @@ public class BuyerController {
 
     @GetMapping("/index")
     public PageInfo<Buyer> index(HttpServletRequest request, Integer page) throws Exception {
+        String name = request.getParameter("name");
+        name = name != null ? name : "";
         if (page == null) {
             page = 1;
         }
-        PageInfo<Buyer> buyerList = buyerService.findPage(page, paginationBean.getPageSize());
+        PageInfo<Buyer> buyerList = buyerService.findPageByName(name, page, paginationBean.getPageSize());
         return buyerList;
     }
 
