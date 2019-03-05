@@ -16,8 +16,8 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
+@ResponseBody
 @RestController
 @RequestMapping("login")
 public class LoginController {
@@ -28,9 +28,9 @@ public class LoginController {
     AuthorizationBean authorizationBean;
 
     @PostMapping("/index")
-    public String index(HttpServletRequest request) throws Exception {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+    public String index(@RequestBody User request) throws Exception {
+        String username = request.getUsername();
+        String password = request.getPassword();
 
         if (username == null || username.length() == 0) {
             throw new BadRequestException(LocaleMessageUtils.getMsg("login.username_empty"));
@@ -40,7 +40,7 @@ public class LoginController {
         }
         User user = userService.findByUsername(username);
         if (user == null) {
-            throw new NotFoundException(LocaleMessageUtils.getMsg("login.user_without"));
+            throw new ForbiddenException(LocaleMessageUtils.getMsg("login.user_without"));
         }
 
         String passwordMd5 = DigestUtils.md5DigestAsHex(password.getBytes());
