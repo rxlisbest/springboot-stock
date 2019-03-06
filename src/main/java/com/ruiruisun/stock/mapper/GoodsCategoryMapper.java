@@ -10,6 +10,8 @@ public interface GoodsCategoryMapper {
 
     List<GoodsCategory> findAll();
 
+    List<GoodsCategory> findAllByName(String name, Integer id);
+
     GoodsCategory findOne(int id);
 
     int create(GoodsCategory goodsCategory);

@@ -21,6 +21,12 @@ public class GoodsService {
         return goods;
     }
 
+    public List<Goods> findAllByName(String name, Integer id) {
+        List<Goods> goods = new ArrayList<>();
+        goods = goodsMapper.findAllByName(name, id);
+        return goods;
+    }
+
     public Goods findOne(int id) {
         Goods goods = goodsMapper.findOne(id);
         return goods;

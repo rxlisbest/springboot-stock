@@ -10,6 +10,8 @@ public interface GoodsMapper {
 
     List<Goods> findAll();
 
+    List<Goods> findAllByName(String name, Integer id);
+
     Goods findOne(int id);
 
     int create(Goods goods);
@@ -17,4 +19,8 @@ public interface GoodsMapper {
     int update(Goods goods);
 
     int delete(Goods goods);
+
+    int updateAmountAndPrice(Goods goods);
+
+    int updateAmount(Goods goods);
 }

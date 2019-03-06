@@ -17,6 +17,10 @@
         select * from goods
     </select>
 
+    <select id="findAllByName" resultType="com.ruiruisun.stock.entity.Goods">
+        select * from goods WHERE name = #{name} AND id != #{id}
+    </select>
+
     <select id="findOne" resultType="com.ruiruisun.stock.entity.Goods">
         select * from goods WHERE id = #{id}
     </select>
@@ -32,4 +36,12 @@
     <delete id="delete" parameterType="com.ruiruisun.stock.entity.Goods">
         DELETE FROM `goods` WHERE id = #{id}
     </delete>
+
+    <update id="updateAmountAndPrice" parameterType="com.ruiruisun.stock.entity.Goods">
+        UPDATE `goods` SET `price` = #{price}, `amount` = `amount` + #{amount}, `update_time` = unix_timestamp(now()) WHERE id = #{id}
+    </update>
+
+    <update id="updateAmount" parameterType="com.ruiruisun.stock.entity.Goods">
+        UPDATE `goods` SET `amount` = `amount` - #{amount}, `update_time` = unix_timestamp(now()) WHERE id = #{id}
+    </update>
 </mapper>

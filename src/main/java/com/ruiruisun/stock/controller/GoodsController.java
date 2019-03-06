@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @ResponseBody
 @RestController
@@ -54,10 +55,10 @@ public class GoodsController {
         if (goodsCategoryId == null || goodsCategoryId == 0) {
             throw new BadRequestException(LocaleMessageUtils.getMsg("goods.goods_category_id_empty"));
         }
-        if (price == null || price == 0) {
+        if (price == null) {
             throw new BadRequestException(LocaleMessageUtils.getMsg("goods.price_empty"));
         }
-        if (amount == null || amount == 0) {
+        if (amount == null) {
             throw new BadRequestException(LocaleMessageUtils.getMsg("goods.amount_empty"));
         }
         if (unit == null || unit.length() == 0) {
@@ -111,5 +112,13 @@ public class GoodsController {
         }
         int rows = goodsService.delete(goods);
         return rows;
+    }
+
+    @GetMapping("/repeat")
+    public List<Goods> repeat(Integer id, String name) throws Exception {
+        name = name != null ? name : "";
+        id = id != null ? id : 0;
+        List<Goods> goodsList = goodsService.findAllByName(name, id);
+        return goodsList;
     }
 }

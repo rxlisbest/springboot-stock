@@ -13,6 +13,10 @@
         select * from goods_category
     </select>
 
+    <select id="findAllByName" resultType="com.ruiruisun.stock.entity.GoodsCategory">
+        select * from goods_category WHERE name = #{name} AND id != #{id}
+    </select>
+
     <select id="findOne" resultType="com.ruiruisun.stock.entity.GoodsCategory">
         select * from goods_category WHERE id = #{id}
     </select>
