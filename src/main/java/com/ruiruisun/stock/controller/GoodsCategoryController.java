@@ -5,8 +5,10 @@ import com.ruiruisun.stock.bean.PaginationBean;
 import com.ruiruisun.stock.entity.Goods;
 import com.ruiruisun.stock.entity.GoodsCategory;
 import com.ruiruisun.stock.exception.BadRequestException;
+import com.ruiruisun.stock.exception.ForbiddenException;
 import com.ruiruisun.stock.exception.NotFoundException;
 import com.ruiruisun.stock.service.GoodsCategoryService;
+import com.ruiruisun.stock.service.GoodsService;
 import com.ruiruisun.stock.utils.LocaleMessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,9 @@ import java.util.List;
 public class GoodsCategoryController {
     @Resource
     private GoodsCategoryService goodsCategoryService;
+
+    @Resource
+    private GoodsService goodsService;
 
     @Autowired
     PaginationBean paginationBean;
@@ -76,6 +81,11 @@ public class GoodsCategoryController {
         if (goodsCategory == null) {
             throw new NotFoundException(LocaleMessageUtils.getMsg("goods_category.not_exists"));
         }
+        List<Goods> goodsList = goodsService.findAllByGoodsCategoryId(id);
+        if (goodsList.size() > 0) {
+            throw new ForbiddenException(LocaleMessageUtils.getMsg("goods_category.has_goods_can_not_delete"));
+        }
+
         int rows = goodsCategoryService.delete(goodsCategory);
         return rows;
     }

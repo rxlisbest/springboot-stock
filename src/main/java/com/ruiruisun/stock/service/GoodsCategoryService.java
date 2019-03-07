@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ruiruisun.stock.entity.GoodsCategory;
 import com.ruiruisun.stock.mapper.GoodsCategoryMapper;
+import com.ruiruisun.stock.mapper.GoodsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

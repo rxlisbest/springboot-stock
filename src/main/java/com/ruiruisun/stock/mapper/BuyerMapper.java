@@ -10,7 +10,9 @@ public interface BuyerMapper {
 
     List<Buyer> findAll();
 
-    List<Buyer> findAllByName(String name);
+    List<Buyer> findPageByName(String name);
+
+    List<Buyer> findAllByName(String name, Integer id);
 
     Buyer findOne(int id);
 

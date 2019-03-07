@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruiruisun.stock.mapper.OrderGoodsMapper">
+
+    <resultMap id="OrderGoodsMap" type="com.ruiruisun.stock.entity.OrderGoods">
+        <result column="id" jdbcType="INTEGER" property="id" javaType="int" />
+        <result column="name" jdbcType="VARCHAR" property="name" javaType="string" />
+        <result column="goods_id" jdbcType="INTEGER" property="id" javaType="int" />
+        <result column="order_id" jdbcType="INTEGER" property="id" javaType="int" />
+        <result column="price" jdbcType="FLOAT" property="price" javaType="float" />
+        <result column="amount" jdbcType="FLOAT" property="amount" javaType="float" />
+        <result column="unit" jdbcType="VARCHAR" property="unit" javaType="string" />
+        <result column="create_time" jdbcType="BIGINT" property="create_time" javaType="int" />
+        <result column="update_time" jdbcType="BIGINT" property="update_time" javaType="int" />
+    </resultMap>
+
+    <select id="findAll" resultType="com.ruiruisun.stock.entity.OrderGoods">
+        select * from order_goods
+    </select>
+
+    <select id="findAllByOrderId" resultType="com.ruiruisun.stock.entity.OrderGoods">
+        select * from order_goods WHERE `order_id` = #{order_id}
+    </select>
+
+    <select id="findOne" resultType="com.ruiruisun.stock.entity.OrderGoods">
+        select * from order_goods WHERE id = #{id}
+    </select>
+
+    <insert id="create" parameterType="com.ruiruisun.stock.entity.OrderGoods" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `order_goods` (`name`, `goods_id`, `order_id`, `price`, `amount`, `unit`, `create_time`, `update_time`) VALUES (#{name}, #{goods_id}, #{order_id}, #{price}, #{amount}, #{unit}, unix_timestamp(now()), 0)
+    </insert>
+
+    <delete id="delete" parameterType="com.ruiruisun.stock.entity.OrderGoods">
+        DELETE FROM `order_goods` WHERE id = #{id}
+    </delete>
+</mapper>

@@ -27,6 +27,12 @@ public class GoodsService {
         return goods;
     }
 
+    public List<Goods> findAllByGoodsCategoryId(Integer goods_category_id) {
+        List<Goods> goods = new ArrayList<>();
+        goods = goodsMapper.findAllByGoodsCategoryId(goods_category_id);
+        return goods;
+    }
+
     public Goods findOne(int id) {
         Goods goods = goodsMapper.findOne(id);
         return goods;

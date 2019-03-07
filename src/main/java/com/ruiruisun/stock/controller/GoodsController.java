@@ -121,4 +121,11 @@ public class GoodsController {
         List<Goods> goodsList = goodsService.findAllByName(name, id);
         return goodsList;
     }
+
+    @GetMapping("/all")
+    public List<Goods> all(Integer goods_category_id) throws Exception {
+        goods_category_id = goods_category_id != null ? goods_category_id : 0;
+        List<Goods> goodsList = goodsService.findAllByGoodsCategoryId(goods_category_id);
+        return goodsList;
+    }
 }

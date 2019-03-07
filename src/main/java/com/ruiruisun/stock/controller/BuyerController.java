@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @ResponseBody
 @RestController
@@ -85,5 +86,19 @@ public class BuyerController {
         }
         int rows = buyerService.delete(buyer);
         return rows;
+    }
+
+    @GetMapping("/all")
+    public List<Buyer> all() throws Exception {
+        List<Buyer> buyerList = buyerService.findAll();
+        return buyerList;
+    }
+
+    @GetMapping("/repeat")
+    public List<Buyer> repeat(HttpServletRequest request, Integer id, String name) throws Exception {
+        name = name != null ? name : "";
+        id = id != null ? id : 0;
+        List<Buyer> buyerList = buyerService.findAllByName(name, id);
+        return buyerList;
     }
 }

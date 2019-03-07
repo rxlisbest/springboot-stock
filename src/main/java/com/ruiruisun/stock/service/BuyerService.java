@@ -33,9 +33,16 @@ public class BuyerService {
         return pageInfo;
     }
 
+
+    public List<Buyer> findAllByName(String name, Integer id) {
+        List<Buyer> buyerList = new ArrayList<>();
+        buyerList = buyerMapper.findAllByName(name, id);
+        return buyerList;
+    }
+
     public PageInfo<Buyer> findPageByName(String name, int page, int pageSize) {
         PageHelper.startPage(page, pageSize);
-        List<Buyer> buyerList = buyerMapper.findAllByName(name);
+        List<Buyer> buyerList = buyerMapper.findPageByName(name);
         PageInfo<Buyer> pageInfo = new PageInfo<>(buyerList);
         return pageInfo;
     }
