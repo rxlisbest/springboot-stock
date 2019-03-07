@@ -2,6 +2,7 @@ package com.ruiruisun.stock.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.ruiruisun.stock.bean.OrderGoodsDayBean;
 import com.ruiruisun.stock.entity.OrderGoods;
 import com.ruiruisun.stock.mapper.OrderGoodsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,14 @@ public class OrderGoodsService {
         List<OrderGoods> orderGoods = new ArrayList<>();
         orderGoods = orderGoodsMapper.findAllByOrderId(order_id);
         return orderGoods;
+    }
+
+    public PageInfo<OrderGoodsDayBean> day(String date, int page, int pageSize) {
+        PageHelper.startPage(page, pageSize);
+        List<OrderGoodsDayBean> orderGoodsDayList = new ArrayList<>();
+        orderGoodsDayList = orderGoodsMapper.day(date);
+        PageInfo<OrderGoodsDayBean> pageInfo = new PageInfo<>(orderGoodsDayList);
+        return pageInfo;
     }
 
     public OrderGoods findOne(int id) {

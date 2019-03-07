@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ruiruisun.stock.bean.CartGoodsBean;
 import com.ruiruisun.stock.bean.CreateOrderBean;
+import com.ruiruisun.stock.bean.OrderMonthBean;
 import com.ruiruisun.stock.entity.Goods;
 import com.ruiruisun.stock.entity.Order;
 import com.ruiruisun.stock.entity.OrderGoods;
@@ -84,5 +85,11 @@ public class OrderService {
             orderGoodsMapper.delete(item);
         });
         return rows;
+    }
+
+    public List<OrderMonthBean> month(String year) {
+        List<OrderMonthBean> orderList = new ArrayList<>();
+        orderList = orderMapper.month(year);
+        return orderList;
     }
 }

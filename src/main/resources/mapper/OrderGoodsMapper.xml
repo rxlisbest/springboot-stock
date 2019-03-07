@@ -15,15 +15,19 @@
     </resultMap>
 
     <select id="findAll" resultType="com.ruiruisun.stock.entity.OrderGoods">
-        select * from order_goods
+        select * from order_goods ORDER BY `id` DESC
     </select>
 
     <select id="findAllByOrderId" resultType="com.ruiruisun.stock.entity.OrderGoods">
-        select * from order_goods WHERE `order_id` = #{order_id}
+        select * from order_goods WHERE `order_id` = #{order_id} ORDER BY `id` DESC
     </select>
 
     <select id="findOne" resultType="com.ruiruisun.stock.entity.OrderGoods">
         select * from order_goods WHERE id = #{id}
+    </select>
+
+    <select id="day" resultType="com.ruiruisun.stock.bean.OrderGoodsDayBean">
+        SELECT g.`name` AS goods_name, og.goods_id, SUM(og.price) AS total, SUM(og.amount) AS amount FROM order_goods og LEFT JOIN `goods` g ON g.id = og.goods_id WHERE DATE_FORMAT(FROM_UNIXTIME(og.create_time), '%Y-%m-%d') = #{date} GROUP BY og.goods_id ORDER BY total DESC
     </select>
 
     <insert id="create" parameterType="com.ruiruisun.stock.entity.OrderGoods" useGeneratedKeys="true" keyProperty="id">

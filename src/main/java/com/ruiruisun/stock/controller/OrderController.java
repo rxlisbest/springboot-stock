@@ -2,6 +2,7 @@ package com.ruiruisun.stock.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.ruiruisun.stock.bean.CreateOrderBean;
+import com.ruiruisun.stock.bean.OrderMonthBean;
 import com.ruiruisun.stock.bean.PaginationBean;
 import com.ruiruisun.stock.entity.Order;
 import com.ruiruisun.stock.exception.NotFoundException;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @ResponseBody
 @RestController
@@ -55,5 +59,32 @@ public class OrderController {
         }
         int rows = orderService.delete(order);
         return rows;
+    }
+
+    @GetMapping("/month")
+    public List<OrderMonthBean> month(String year) {
+        if (year == null) {
+            DateFormat format = new SimpleDateFormat("yyyy");
+            Date today = new Date();
+            year = format.format(today);
+        }
+        Map<String, Float> yearData = new LinkedHashMap<String, Float>();
+        for (int i = 1; i <= 12; i++) {
+            String month = String.format("%s-%02d", year, i);
+            yearData.put(month, (float) 0);
+        }
+        System.out.println(yearData);
+        List<OrderMonthBean> orderMonthList = orderService.month(year);
+        orderMonthList.forEach(item -> {
+            yearData.put(item.getMonth(), item.getTotal());
+        });
+        List<OrderMonthBean> data = new ArrayList<OrderMonthBean>();
+        yearData.forEach((k, v) -> {
+            OrderMonthBean orderMonthBean = new OrderMonthBean();
+            orderMonthBean.setMonth(k);
+            orderMonthBean.setTotal(v);
+            data.add(orderMonthBean);
+        });
+        return data;
     }
 }

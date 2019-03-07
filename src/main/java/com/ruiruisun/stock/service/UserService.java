@@ -15,4 +15,14 @@ public class UserService {
         User = userMapper.findByUsername(username);
         return User;
     }
+
+    public User findOne(int id) {
+        User user = userMapper.findOne(id);
+        return user;
+    }
+
+    public int update(User user) {
+        int rows = userMapper.update(user);
+        return rows;
+    }
 }

@@ -1,5 +1,7 @@
 package com.ruiruisun.stock.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.ruiruisun.stock.bean.OrderGoodsDayBean;
 import com.ruiruisun.stock.bean.PaginationBean;
 import com.ruiruisun.stock.entity.OrderGoods;
 import com.ruiruisun.stock.exception.BadRequestException;
@@ -9,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @ResponseBody
@@ -28,6 +33,20 @@ public class OrderGoodsController {
         }
         List<OrderGoods> orderGoodsList = orderGoodsService.findAllByOrderId(order_id);
         return orderGoodsList;
+    }
+
+    @GetMapping("/day")
+    public PageInfo<OrderGoodsDayBean> day(String date, Integer page) throws Exception {
+        if (page == null) {
+            page = 1;
+        }
+        if (date == null) {
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date today = new Date();
+            date = format.format(today);
+        }
+        PageInfo<OrderGoodsDayBean> orderGoodsDayList = orderGoodsService.day(date, page, paginationBean.getPageSize());
+        return orderGoodsDayList;
     }
 
     @PostMapping(value = "/create")

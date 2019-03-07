@@ -14,11 +14,11 @@
     </resultMap>
 
     <select id="findAll" resultType="com.ruiruisun.stock.entity.GoodsLog">
-        select * from goods_log
+        select * from goods_log ORDER BY `id` DESC
     </select>
 
     <select id="findAllByGoodsId" resultType="com.ruiruisun.stock.entity.GoodsLog">
-        select * from goods_log WHERE `goods_id` = #{goods_id}
+        select * from goods_log WHERE `goods_id` = #{goods_id} ORDER BY `id` DESC
     </select>
 
     <select id="findAllByName" resultType="com.ruiruisun.stock.entity.GoodsLog">
