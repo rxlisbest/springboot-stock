@@ -41,8 +41,10 @@ public class UserController {
         if (user == null) {
             throw new NotFoundException(LocaleMessageUtils.getMsg("user.not_exists"));
         }
-        password = DigestUtils.md5DigestAsHex(password.getBytes());
-        if (!password.equals(user.getPassword())) {
+
+        oldPassword = DigestUtils.md5DigestAsHex(oldPassword.getBytes());
+        String passwordMd5 = DigestUtils.md5DigestAsHex(password.getBytes());
+        if (!oldPassword.equals(user.getPassword())) {
             throw new BadRequestException(LocaleMessageUtils.getMsg("login.password_error"));
         }
         if (password.length() < 6) {
@@ -52,7 +54,7 @@ public class UserController {
             throw new BadRequestException(LocaleMessageUtils.getMsg("user.confirm_password_not_same"));
         }
 
-        user.setPassword(password);
+        user.setPassword(passwordMd5);
         int rows = userService.update(user);
         return rows;
     }
