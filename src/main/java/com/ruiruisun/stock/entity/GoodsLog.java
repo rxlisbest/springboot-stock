@@ -8,6 +8,7 @@ public class GoodsLog {
     private String name;
     private int goods_id;
     private float price;
+    private float discount_price;
     private float amount;
     private int create_time;
     private int update_time;

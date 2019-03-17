@@ -8,6 +8,7 @@ public class Goods {
     private String name;
     private int goods_category_id;
     private float price;
+    private float discount_price;
     private float amount;
     private String unit;
     private int create_time;

@@ -30,11 +30,11 @@
     </select>
 
     <insert id="create" parameterType="com.ruiruisun.stock.entity.Goods" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO `goods` (`name`, `goods_category_id`, `price`, `amount`, `unit`, `create_time`, `update_time`) VALUES (#{name}, #{goods_category_id}, #{price}, #{amount}, #{unit}, unix_timestamp(now()), 0)
+        INSERT INTO `goods` (`name`, `goods_category_id`, `price`, `discount_price`, `amount`, `unit`, `create_time`, `update_time`) VALUES (#{name}, #{goods_category_id}, #{price}, #{discount_price}, #{amount}, #{unit}, unix_timestamp(now()), 0)
     </insert>
 
     <update id="update" parameterType="com.ruiruisun.stock.entity.Goods">
-        UPDATE `goods` SET `name` = #{name}, `goods_category_id` = #{goods_category_id}, `price` = #{price}, `amount` = #{amount}, `unit` = #{unit}, `update_time` = unix_timestamp(now()) WHERE id = #{id}
+        UPDATE `goods` SET `name` = #{name}, `goods_category_id` = #{goods_category_id}, `price` = #{price}, `discount_price` = #{discount_price}, `amount` = #{amount}, `unit` = #{unit}, `update_time` = unix_timestamp(now()) WHERE id = #{id}
     </update>
 
     <delete id="delete" parameterType="com.ruiruisun.stock.entity.Goods">
@@ -42,7 +42,7 @@
     </delete>
 
     <update id="updateAmountAndPrice" parameterType="com.ruiruisun.stock.entity.Goods">
-        UPDATE `goods` SET `price` = #{price}, `amount` = `amount` + #{amount}, `update_time` = unix_timestamp(now()) WHERE id = #{id}
+        UPDATE `goods` SET `price` = #{price}, `discount_price` = #{discount_price}, `amount` = `amount` + #{amount}, `update_time` = unix_timestamp(now()) WHERE id = #{id}
     </update>
 
     <update id="updateAmount" parameterType="com.ruiruisun.stock.entity.Goods">

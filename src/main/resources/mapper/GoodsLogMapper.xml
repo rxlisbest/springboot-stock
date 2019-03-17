@@ -30,11 +30,11 @@
     </select>
 
     <insert id="create" parameterType="com.ruiruisun.stock.entity.GoodsLog" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO `goods_log` (`name`, `goods_id`, `price`, `amount`, `create_time`, `update_time`) VALUES (#{name}, #{goods_id}, #{price}, #{amount}, unix_timestamp(now()), 0)
+        INSERT INTO `goods_log` (`name`, `goods_id`, `price`, `discount_price`, `amount`, `create_time`, `update_time`) VALUES (#{name}, #{goods_id}, #{price}, #{discount_price}, #{amount}, unix_timestamp(now()), 0)
     </insert>
 
     <update id="update" parameterType="com.ruiruisun.stock.entity.GoodsLog">
-        UPDATE `goods_log` SET `name` = #{name}, `goods_id` = #{goods_id}, `price` = #{price}, `amount` = #{amount}, `update_time` = unix_timestamp(now()) WHERE id = #{id}
+        UPDATE `goods_log` SET `name` = #{name}, `goods_id` = #{goods_id}, `price` = #{price}, `discount_price` = #{discount_price}, `amount` = #{amount}, `update_time` = unix_timestamp(now()) WHERE id = #{id}
     </update>
 
     <delete id="delete" parameterType="com.ruiruisun.stock.entity.GoodsLog">
