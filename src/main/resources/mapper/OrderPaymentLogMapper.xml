@@ -11,7 +11,7 @@
         <result column="update_time" jdbcType="BIGINT" property="update_time" javaType="int" />
     </resultMap>
 
-    <select id="all" resultType="com.ruiruisun.stock.entity.OrderPaymentLog">
+    <select id="findAll" resultType="com.ruiruisun.stock.entity.OrderPaymentLog">
         select * from `order_payment_log`
     </select>
 

@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface PaymentMapper {
 
-    List<Payment> all();
+    List<Payment> findAll();
 
     Payment findOne(int id);
 

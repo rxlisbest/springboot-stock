@@ -10,7 +10,7 @@
         <result column="update_time" jdbcType="BIGINT" property="update_time" javaType="int" />
     </resultMap>
 
-    <select id="all" resultType="com.ruiruisun.stock.entity.Payment">
+    <select id="findAll" resultType="com.ruiruisun.stock.entity.Payment">
         select * from `payment`
     </select>
 
