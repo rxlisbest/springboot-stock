@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruiruisun.stock.mapper.PaymentMapper">
+
+    <resultMap id="BaseResultMap" type="com.ruiruisun.stock.entity.Payment">
+        <result column="id" jdbcType="INTEGER" property="id" javaType="int" />
+        <result column="name" jdbcType="VARCHAR" property="name" javaType="string" />
+        <result column="type" jdbcType="INTEGER" property="type" javaType="int" />
+        <result column="create_time" jdbcType="BIGINT" property="create_time" javaType="int" />
+        <result column="update_time" jdbcType="BIGINT" property="update_time" javaType="int" />
+    </resultMap>
+
+    <select id="all" resultType="com.ruiruisun.stock.entity.Payment">
+        select * from `payment`
+    </select>
+
+    <select id="findOne" resultType="com.ruiruisun.stock.entity.Payment">
+        select * from `payment` WHERE id = #{id}
+    </select>
+</mapper>
