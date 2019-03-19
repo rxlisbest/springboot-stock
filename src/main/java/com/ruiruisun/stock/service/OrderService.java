@@ -5,12 +5,15 @@ import com.github.pagehelper.PageInfo;
 import com.ruiruisun.stock.bean.CartGoodsBean;
 import com.ruiruisun.stock.bean.CreateOrderBean;
 import com.ruiruisun.stock.bean.OrderMonthBean;
+import com.ruiruisun.stock.bean.OrderPaymentBean;
 import com.ruiruisun.stock.entity.Goods;
 import com.ruiruisun.stock.entity.Order;
 import com.ruiruisun.stock.entity.OrderGoods;
+import com.ruiruisun.stock.entity.OrderPayment;
 import com.ruiruisun.stock.mapper.GoodsMapper;
 import com.ruiruisun.stock.mapper.OrderGoodsMapper;
 import com.ruiruisun.stock.mapper.OrderMapper;
+import com.ruiruisun.stock.mapper.OrderPaymentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +32,9 @@ public class OrderService {
 
     @Autowired
     GoodsMapper goodsMapper;
+
+    @Autowired
+    OrderPaymentMapper orderPaymentMapper;
 
     public List<Order> findAll() {
         List<Order> Order = new ArrayList<>();
@@ -54,6 +60,7 @@ public class OrderService {
         orderMapper.create(order);
         int id = order.getId();
         List<CartGoodsBean> cartGoods = data.getCart();
+        List<OrderPaymentBean> payments = data.getPayments();
         cartGoods.forEach(item -> {
             OrderGoods orderGoods = new OrderGoods();
             orderGoods.setGoods_id(item.getId());
@@ -68,7 +75,17 @@ public class OrderService {
             goods.setAmount(item.getOrder_amount());
             goods.setId(item.getId());
             goodsMapper.updateAmount(goods);
+        });
 
+        payments.forEach(item -> {
+            if (item.getMoney() > 0) {
+                OrderPayment orderPayment = new OrderPayment();
+                orderPayment.setOrder_id(id);
+                orderPayment.setMoney(item.getMoney());
+                orderPayment.setPayment_id(item.getId());
+                orderPayment.setPayment_type(item.getType());
+                orderPaymentMapper.create(orderPayment);
+            }
         });
         return id;
     }

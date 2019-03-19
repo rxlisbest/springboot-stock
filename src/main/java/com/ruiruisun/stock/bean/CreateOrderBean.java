@@ -9,4 +9,5 @@ import java.util.List;
 public class CreateOrderBean {
     Order order;
     List<CartGoodsBean> cart;
+    List<OrderPaymentBean> payments;
 }

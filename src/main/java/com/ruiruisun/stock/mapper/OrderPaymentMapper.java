@@ -1,5 +1,6 @@
 package com.ruiruisun.stock.mapper;
 
+import com.ruiruisun.stock.bean.OrderPaymentDayBean;
 import com.ruiruisun.stock.entity.OrderPayment;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,4 +13,7 @@ public interface OrderPaymentMapper {
 
     OrderPayment findOne(int id);
 
+    int create(OrderPayment orderPayment);
+
+    List<OrderPaymentDayBean> day(String date);
 }
