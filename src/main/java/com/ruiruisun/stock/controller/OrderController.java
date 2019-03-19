@@ -1,10 +1,12 @@
 package com.ruiruisun.stock.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.ruiruisun.stock.bean.CartGoodsBean;
 import com.ruiruisun.stock.bean.CreateOrderBean;
 import com.ruiruisun.stock.bean.OrderMonthBean;
 import com.ruiruisun.stock.bean.PaginationBean;
 import com.ruiruisun.stock.entity.Order;
+import com.ruiruisun.stock.exception.BadRequestException;
 import com.ruiruisun.stock.exception.NotFoundException;
 import com.ruiruisun.stock.service.OrderService;
 import com.ruiruisun.stock.utils.LocaleMessageUtils;
@@ -12,7 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import javax.management.BadAttributeValueExpException;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -26,6 +29,8 @@ public class OrderController {
 
     @Autowired
     PaginationBean paginationBean;
+
+    private BigDecimal total;
 
     @GetMapping("/index")
     public PageInfo<Order> index(Integer page) throws Exception {
@@ -47,6 +52,22 @@ public class OrderController {
 
     @PostMapping(value = "/create")
     public int create(@RequestBody CreateOrderBean request) throws Exception {
+        Order order = request.getOrder();
+        List<CartGoodsBean> cartGoods = request.getCart();
+        total = new BigDecimal("0");
+        cartGoods.forEach(item -> {
+            BigDecimal price = new BigDecimal(Float.toString(item.getPrice()));
+            BigDecimal amount =  new BigDecimal(Float.toString(item.getOrder_amount()));
+            BigDecimal summary = price.multiply(amount);
+            System.out.println(summary);
+            total = total.add(summary);
+        });
+        BigDecimal jsTotal = new BigDecimal(Float.toString(order.getTotal()));
+        int result = jsTotal.compareTo(total);
+        if (result != 0) {
+            throw new BadRequestException(LocaleMessageUtils.getMsg("order.total_error"));
+        }
+
         int id = orderService.create(request);
         return id;
     }
@@ -73,7 +94,6 @@ public class OrderController {
             String month = String.format("%s-%02d", year, i);
             yearData.put(month, (float) 0);
         }
-        System.out.println(yearData);
         List<OrderMonthBean> orderMonthList = orderService.month(year);
         orderMonthList.forEach(item -> {
             yearData.put(item.getMonth(), item.getTotal());

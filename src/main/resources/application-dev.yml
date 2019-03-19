@@ -41,4 +41,4 @@ authorization:
   secret: test1
 
 pagination:
-  pageSize: 10
+  pageSize: 1

@@ -47,6 +47,7 @@ public class GoodsController {
         String name = request.getName();
         Integer goodsCategoryId = request.getGoods_category_id();
         Float price = request.getPrice();
+        Float discountPrice = request.getDiscount_price();
         Float amount = request.getAmount();
         String unit = request.getUnit();
         if (name == null || name.length() == 0) {
@@ -57,6 +58,9 @@ public class GoodsController {
         }
         if (price == null) {
             throw new BadRequestException(LocaleMessageUtils.getMsg("goods.price_empty"));
+        }
+        if (discountPrice == null) {
+            throw new BadRequestException(LocaleMessageUtils.getMsg("goods.discount_price_empty"));
         }
         if (amount == null) {
             throw new BadRequestException(LocaleMessageUtils.getMsg("goods.amount_empty"));
@@ -74,6 +78,7 @@ public class GoodsController {
         String name = request.getName();
         Integer goodsCategoryId = request.getGoods_category_id();
         Float price = request.getPrice();
+        Float discountPrice = request.getDiscount_price();
         Float amount = request.getAmount();
         String unit = request.getUnit();
         if (name == null || name.length() == 0) {
@@ -84,6 +89,9 @@ public class GoodsController {
         }
         if (price == null || price == 0) {
             throw new BadRequestException(LocaleMessageUtils.getMsg("goods.price_empty"));
+        }
+        if (discountPrice == null || discountPrice == 0) {
+            throw new BadRequestException(LocaleMessageUtils.getMsg("goods.discount_price_empty"));
         }
         if (amount == null || amount == 0) {
             throw new BadRequestException(LocaleMessageUtils.getMsg("goods.amount_empty"));
@@ -99,6 +107,7 @@ public class GoodsController {
         goods.setGoods_category_id(request.getGoods_category_id());
         goods.setAmount(request.getAmount());
         goods.setPrice(request.getPrice());
+        goods.setDiscount_price(request.getDiscount_price());
         goods.setUnit(request.getUnit());
         int rows = goodsService.update(goods);
         return rows;
