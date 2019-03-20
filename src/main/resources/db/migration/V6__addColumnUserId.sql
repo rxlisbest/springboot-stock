@@ -1,0 +1,6 @@
+use `stock`;
+
+ALTER TABLE `order` ADD COLUMN `user_id` INT NOT NULL DEFAULT 0 COMMENT '用户ID';
+ALTER TABLE `order_goods` ADD COLUMN `user_id` INT NOT NULL DEFAULT 0 COMMENT '用户ID';
+ALTER TABLE `order_payment` ADD COLUMN `user_id` INT NOT NULL DEFAULT 0 COMMENT '用户ID';
+ALTER TABLE `order_payment_log` ADD COLUMN `user_id` INT NOT NULL DEFAULT 0 COMMENT '用户ID';

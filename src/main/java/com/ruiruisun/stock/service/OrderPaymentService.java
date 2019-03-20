@@ -7,9 +7,11 @@ import com.ruiruisun.stock.bean.OrderPaymentDayBean;
 import com.ruiruisun.stock.entity.OrderGoods;
 import com.ruiruisun.stock.entity.OrderPayment;
 import com.ruiruisun.stock.entity.Payment;
+import com.ruiruisun.stock.entity.User;
 import com.ruiruisun.stock.mapper.OrderGoodsMapper;
 import com.ruiruisun.stock.mapper.OrderPaymentMapper;
 import com.ruiruisun.stock.mapper.PaymentMapper;
+import com.ruiruisun.stock.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,9 @@ public class OrderPaymentService {
 
     @Autowired
     PaymentMapper paymentMapper;
+
+    @Autowired
+    UserMapper userMapper;
 
     public List<OrderPaymentDayBean> day(String date) {
         List<Payment> paymentList = paymentMapper.findAll();
@@ -46,6 +51,32 @@ public class OrderPaymentService {
         List<OrderPaymentDayBean> data = new ArrayList<>();
         dayData.forEach((k, v) -> {
             data.add(v);
+        });
+        return data;
+    }
+
+    public List<Map> userDay(String date) {
+        Map<String, Float> userDayData = new LinkedHashMap<String, Float>();
+        List<OrderPaymentDayBean> userOrderPaymentDayList = orderPaymentMapper.userDay(date);
+        userOrderPaymentDayList.forEach(item -> {
+            userDayData.put(item.getUser_id() + "-" + item.getPayment_id(), item.getMoney());
+        });
+
+        List<Payment> paymentList = paymentMapper.findAll();
+
+        List<User> userList = userMapper.findAll();
+        List<Map> data = new ArrayList<>();
+        userList.forEach(v -> {
+            Map<String, Object> rowData = new LinkedHashMap<String, Object>();
+            rowData.put("name", v.getName());
+            paymentList.forEach(vv -> {
+                if (userDayData.get(v.getId() + "-" + vv.getId()) != null) {
+                    rowData.put(String.valueOf(vv.getId()), userDayData.get(v.getId() + "-" + vv.getId()));
+                } else {
+                    rowData.put(String.valueOf(vv.getId()), (float) 0);
+                }
+            });
+            data.add(rowData);
         });
         return data;
     }

@@ -4,6 +4,7 @@
 
     <resultMap id="OrderGoodsMap" type="com.ruiruisun.stock.entity.OrderGoods">
         <result column="id" jdbcType="INTEGER" property="id" javaType="int" />
+        <result column="user_id" jdbcType="INTEGER" property="user_id" javaType="int" />
         <result column="name" jdbcType="VARCHAR" property="name" javaType="string" />
         <result column="goods_id" jdbcType="INTEGER" property="id" javaType="int" />
         <result column="order_id" jdbcType="INTEGER" property="id" javaType="int" />
@@ -31,7 +32,7 @@
     </select>
 
     <insert id="create" parameterType="com.ruiruisun.stock.entity.OrderGoods" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO `order_goods` (`name`, `goods_id`, `order_id`, `price`, `amount`, `unit`, `create_time`, `update_time`) VALUES (#{name}, #{goods_id}, #{order_id}, #{price}, #{amount}, #{unit}, unix_timestamp(now()), 0)
+        INSERT INTO `order_goods` (`user_id`, `name`, `goods_id`, `order_id`, `price`, `amount`, `unit`, `create_time`, `update_time`) VALUES (#{user_id}, #{name}, #{goods_id}, #{order_id}, #{price}, #{amount}, #{unit}, unix_timestamp(now()), 0)
     </insert>
 
     <delete id="delete" parameterType="com.ruiruisun.stock.entity.OrderGoods">

@@ -9,6 +9,10 @@
         <result column="realName" jdbcType="VARCHAR" property="name" javaType="string" />
     </resultMap>
 
+    <select id="findAll" resultType="com.ruiruisun.stock.entity.User">
+        select * from user
+    </select>
+
     <select id="findByUsername" resultType="com.ruiruisun.stock.entity.User">
         select * from user where username = #{username}
     </select>

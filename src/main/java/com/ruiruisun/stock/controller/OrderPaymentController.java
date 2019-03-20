@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @ResponseBody
 @RestController
@@ -29,6 +30,17 @@ public class OrderPaymentController {
             date = format.format(today);
         }
         List<OrderPaymentDayBean> orderPaymentList = orderPaymentService.day(date);
+        return orderPaymentList;
+    }
+
+    @GetMapping("/user_day")
+    public List<Map> userDay(String date) throws Exception {
+        if (date == null) {
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date today = new Date();
+            date = format.format(today);
+        }
+        List<Map> orderPaymentList = orderPaymentService.userDay(date);
         return orderPaymentList;
     }
 }

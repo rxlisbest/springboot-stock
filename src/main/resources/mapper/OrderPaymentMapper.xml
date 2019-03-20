@@ -4,6 +4,7 @@
 
     <resultMap id="BaseResultMap" type="com.ruiruisun.stock.entity.OrderPayment">
         <result column="id" jdbcType="INTEGER" property="id" javaType="int" />
+        <result column="user_id" jdbcType="INTEGER" property="user_id" javaType="int" />
         <result column="order_id" jdbcType="INTEGER" property="order_id" javaType="int" />
         <result column="money" jdbcType="FLOAT" property="money" javaType="float" />
         <result column="payment_id" jdbcType="INTEGER" property="payment_id" javaType="int" />
@@ -21,10 +22,14 @@
     </select>
 
     <insert id="create" parameterType="com.ruiruisun.stock.entity.OrderPayment" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO `order_payment` (`order_id`, `money`, `payment_id`, `payment_type`, `create_time`, `update_time`) VALUES (#{order_id}, #{money}, #{payment_id}, #{payment_type}, unix_timestamp(now()), 0)
+        INSERT INTO `order_payment` (`user_id`, `order_id`, `money`, `payment_id`, `payment_type`, `create_time`, `update_time`) VALUES (#{user_id}, #{order_id}, #{money}, #{payment_id}, #{payment_type}, unix_timestamp(now()), 0)
     </insert>
 
     <select id="day" resultType="com.ruiruisun.stock.bean.OrderPaymentDayBean">
         SELECT `payment_id`, SUM(`money`) AS `money` FROM `order_payment` WHERE DATE_FORMAT(FROM_UNIXTIME(create_time), '%Y-%m-%d') = #{date} GROUP BY `payment_id` ORDER BY `money` DESC
+    </select>
+
+    <select id="userDay" resultType="com.ruiruisun.stock.bean.OrderPaymentDayBean">
+        SELECT `user_id`, `payment_id`, SUM(`money`) AS `money` FROM `order_payment` WHERE DATE_FORMAT(FROM_UNIXTIME(create_time), '%Y-%m-%d') = #{date} GROUP BY `user_id`, `payment_id` ORDER BY `money` DESC
     </select>
 </mapper>

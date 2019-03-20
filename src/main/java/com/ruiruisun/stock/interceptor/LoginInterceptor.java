@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ruiruisun.stock.bean.AuthorizationBean;
 import com.ruiruisun.stock.exception.BadRequestException;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 public class LoginInterceptor implements HandlerInterceptor {
 
@@ -45,6 +47,10 @@ public class LoginInterceptor implements HandlerInterceptor {
             Algorithm algorithm = Algorithm.HMAC256(authorizationBean.getSecret());
             JWTVerifier verifier = JWT.require(algorithm).build(); //Reusable verifier instance
             DecodedJWT jwt = verifier.verify(token);
+
+            Map<String, Claim> claims = jwt.getClaims();    //Key is the Claim name
+            int userId = claims.get("id").asInt();
+            httpServletRequest.setAttribute("user_id", userId);
         } catch (JWTVerificationException exception){
             throw new UnauthorizedException(exception.getMessage());
         }

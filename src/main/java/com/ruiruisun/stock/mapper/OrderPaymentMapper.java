@@ -16,4 +16,6 @@ public interface OrderPaymentMapper {
     int create(OrderPayment orderPayment);
 
     List<OrderPaymentDayBean> day(String date);
+
+    List<OrderPaymentDayBean> userDay(String date);
 }

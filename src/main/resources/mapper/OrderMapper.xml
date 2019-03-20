@@ -4,6 +4,7 @@
 
     <resultMap id="OrderMap" type="com.ruiruisun.stock.entity.Order">
         <result column="id" jdbcType="INTEGER" property="id" javaType="int" />
+        <result column="user_id" jdbcType="INTEGER" property="user_id" javaType="int" />
         <result column="buyer_id" jdbcType="INTEGER" property="buyer_id" javaType="int" />
         <result column="total" jdbcType="FLOAT" property="total" javaType="float" />
         <result column="create_time" jdbcType="BIGINT" property="create_time" javaType="int" />
@@ -23,7 +24,7 @@
     </select>
 
     <insert id="create" parameterType="com.ruiruisun.stock.entity.Order" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO `order` (`buyer_id`, `total`, `create_time`, `update_time`) VALUES (#{buyer_id}, #{total}, unix_timestamp(now()), 0)
+        INSERT INTO `order` (`user_id`, `buyer_id`, `total`, `create_time`, `update_time`) VALUES (#{user_id}, #{buyer_id}, #{total}, unix_timestamp(now()), 0)
     </insert>
 
     <delete id="delete" parameterType="com.ruiruisun.stock.entity.Order">

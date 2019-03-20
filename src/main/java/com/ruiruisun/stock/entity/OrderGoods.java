@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class OrderGoods {
     private int id;
+    private int user_id;
     private String name;
     private int goods_id;
     private int order_id;

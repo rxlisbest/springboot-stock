@@ -55,14 +55,16 @@ public class OrderService {
     }
 
     @Transactional
-    public int create(CreateOrderBean data) {
+    public int create(int userId, CreateOrderBean data) {
         Order order = data.getOrder();
+        order.setUser_id(userId);
         orderMapper.create(order);
         int id = order.getId();
         List<CartGoodsBean> cartGoods = data.getCart();
         List<OrderPaymentBean> payments = data.getPayments();
         cartGoods.forEach(item -> {
             OrderGoods orderGoods = new OrderGoods();
+            orderGoods.setUser_id(userId);
             orderGoods.setGoods_id(item.getId());
             orderGoods.setName(item.getName());
             orderGoods.setOrder_id(id);
@@ -80,6 +82,7 @@ public class OrderService {
         payments.forEach(item -> {
             if (item.getMoney() > 0) {
                 OrderPayment orderPayment = new OrderPayment();
+                orderPayment.setUser_id(userId);
                 orderPayment.setOrder_id(id);
                 orderPayment.setMoney(item.getMoney());
                 orderPayment.setPayment_id(item.getId());

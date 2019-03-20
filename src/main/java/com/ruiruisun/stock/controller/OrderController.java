@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.management.BadAttributeValueExpException;
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -48,7 +49,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/create")
-    public int create(@RequestBody CreateOrderBean request) throws Exception {
+    public int create(HttpServletRequest httpServletRequest, @RequestBody CreateOrderBean request) throws Exception {
         Order order = request.getOrder();
         List<CartGoodsBean> cartGoods = request.getCart();
         total = new BigDecimal("0");
@@ -64,8 +65,8 @@ public class OrderController {
         if (result != 0) {
             throw new BadRequestException(LocaleMessageUtils.getMsg("order.total_error"));
         }
-
-        int id = orderService.create(request);
+        int userId = (int) httpServletRequest.getAttribute("user_id");
+        int id = orderService.create(userId, request);
         return id;
     }
 
