@@ -38,6 +38,13 @@ public class GoodsService {
         return goods;
     }
 
+    public PageInfo<Goods> findPageByName(String name, int page, int pageSize) {
+        PageHelper.startPage(page, pageSize);
+        List<Goods> goodsList = goodsMapper.findPageByName(name);
+        PageInfo<Goods> pageInfo = new PageInfo<>(goodsList);
+        return pageInfo;
+    }
+
     public PageInfo<Goods> findPage(int page, int pageSize) {
         PageHelper.startPage(page, pageSize);
         List<Goods> goodsList = goodsMapper.findAll();

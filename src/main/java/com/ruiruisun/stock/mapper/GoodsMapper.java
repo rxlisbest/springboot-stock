@@ -12,6 +12,8 @@ public interface GoodsMapper {
 
     List<Goods> findAllByName(String name, Integer id);
 
+    List<Goods> findPageByName(String name);
+
     List<Goods> findAllByGoodsCategoryId(Integer goods_category_id);
 
     Goods findOne(int id);

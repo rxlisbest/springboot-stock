@@ -21,6 +21,10 @@
         select * from goods WHERE name = #{name} AND id != #{id}
     </select>
 
+    <select id="findPageByName" resultType="com.ruiruisun.stock.entity.Goods">
+        select * from goods WHERE `name` LIKE CONCAT('%', #{name}, '%') ORDER BY `id` DESC
+    </select>
+
     <select id="findAllByGoodsCategoryId" resultType="com.ruiruisun.stock.entity.Goods">
         select * from goods WHERE goods_category_id = #{goods_category_id} ORDER BY `id` DESC
     </select>

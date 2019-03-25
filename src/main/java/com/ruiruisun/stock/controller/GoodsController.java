@@ -26,10 +26,12 @@ public class GoodsController {
 
     @GetMapping("/index")
     public PageInfo<Goods> index(HttpServletRequest request, Integer page) throws Exception {
+        String name = request.getParameter("name");
+        name = name != null ? name : "";
         if (page == null) {
             page = 1;
         }
-        PageInfo<Goods> goodsList = goodsService.findPage(page, paginationBean.getPageSize());
+        PageInfo<Goods> goodsList = goodsService.findPageByName(name, page, paginationBean.getPageSize());
         return goodsList;
     }
 
