@@ -15,7 +15,7 @@
     </select>
 
     <select id="findPageByName" resultType="com.ruiruisun.stock.entity.Buyer">
-        select * from buyer WHERE `name` LIKE CONCAT('%', #{name}, '%') ORDER BY `id` DESC
+        select * from buyer WHERE `name` LIKE CONCAT('%', #{name}, '%') OR `phone` LIKE CONCAT('%', #{name}, '%') ORDER BY `id` DESC
     </select>
 
     <select id="findAllByName" resultType="com.ruiruisun.stock.entity.Buyer">
