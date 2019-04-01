@@ -21,8 +21,33 @@
         select * from `order_payment` WHERE id = #{id}
     </select>
 
+    <select id="findAllByOrderId" resultType="com.ruiruisun.stock.bean.OrderPaymentBean">
+        select op.id, p.name, op.money from `order_payment` op LEFT JOIN `payment` p ON p.id = op.payment_id WHERE order_id = #{order_id} ORDER BY `id` DESC
+    </select>
+
+    <select id="findPageByCondition" resultType="com.ruiruisun.stock.bean.OrderPaymentBuyerBean">
+        SELECT
+          p.name, SUM(op.money) AS money, b.name AS buyer_name, payment_id
+        FROM
+          `order_payment` op
+        LEFT JOIN
+          `payment` p
+        ON
+          p.id = op.payment_id
+        LEFT JOIN
+          `buyer` b
+        ON
+          b.id = op.buyer_id
+        WHERE
+          DATE_FORMAT(FROM_UNIXTIME(op.create_time), '%Y-%m-%d') = #{date}
+        <if test="payment_id > 0">
+          AND `payment_id` = #{payment_id}
+        </if>
+        GROUP BY op.buyer_id, payment_id
+    </select>
+
     <insert id="create" parameterType="com.ruiruisun.stock.entity.OrderPayment" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO `order_payment` (`user_id`, `order_id`, `money`, `payment_id`, `payment_type`, `create_time`, `update_time`) VALUES (#{user_id}, #{order_id}, #{money}, #{payment_id}, #{payment_type}, unix_timestamp(now()), 0)
+        INSERT INTO `order_payment` (`buyer_id`, `user_id`, `order_id`, `money`, `payment_id`, `payment_type`, `create_time`, `update_time`) VALUES (#{buyer_id}, #{user_id}, #{order_id}, #{money}, #{payment_id}, #{payment_type}, unix_timestamp(now()), 0)
     </insert>
 
     <select id="day" resultType="com.ruiruisun.stock.bean.OrderPaymentDayBean">

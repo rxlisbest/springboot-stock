@@ -82,6 +82,7 @@ public class OrderService {
         payments.forEach(item -> {
             if (item.getMoney() > 0) {
                 OrderPayment orderPayment = new OrderPayment();
+                orderPayment.setBuyer_id(order.getBuyer_id());
                 orderPayment.setUser_id(userId);
                 orderPayment.setOrder_id(id);
                 orderPayment.setMoney(item.getMoney());

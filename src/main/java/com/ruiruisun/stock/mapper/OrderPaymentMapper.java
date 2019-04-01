@@ -1,5 +1,7 @@
 package com.ruiruisun.stock.mapper;
 
+import com.ruiruisun.stock.bean.OrderPaymentBean;
+import com.ruiruisun.stock.bean.OrderPaymentBuyerBean;
 import com.ruiruisun.stock.bean.OrderPaymentDayBean;
 import com.ruiruisun.stock.entity.OrderPayment;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,6 +12,10 @@ import java.util.List;
 public interface OrderPaymentMapper {
 
     List<OrderPayment> findAll();
+
+    List<OrderPaymentBean> findAllByOrderId(int order_id);
+
+    List<OrderPaymentBuyerBean> findPageByCondition(String date, Integer payment_id);
 
     OrderPayment findOne(int id);
 

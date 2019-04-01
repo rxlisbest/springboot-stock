@@ -3,6 +3,8 @@ package com.ruiruisun.stock.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ruiruisun.stock.bean.OrderGoodsDayBean;
+import com.ruiruisun.stock.bean.OrderPaymentBean;
+import com.ruiruisun.stock.bean.OrderPaymentBuyerBean;
 import com.ruiruisun.stock.bean.OrderPaymentDayBean;
 import com.ruiruisun.stock.entity.OrderGoods;
 import com.ruiruisun.stock.entity.OrderPayment;
@@ -30,6 +32,15 @@ public class OrderPaymentService {
 
     @Autowired
     UserMapper userMapper;
+
+
+    public PageInfo<OrderPaymentBuyerBean> findPageByCondition(String date, Integer payment_id, Integer page, Integer pageSize) {
+        PageHelper.startPage(page, pageSize);
+        List<OrderPaymentBuyerBean> orderPaymentBuyerList = orderPaymentMapper.findPageByCondition(date, payment_id);
+        PageInfo<OrderPaymentBuyerBean> pageInfo = new PageInfo<>(orderPaymentBuyerList);
+        return pageInfo;
+    }
+
 
     public List<OrderPaymentDayBean> day(String date) {
         List<Payment> paymentList = paymentMapper.findAll();
@@ -79,5 +90,10 @@ public class OrderPaymentService {
             data.add(rowData);
         });
         return data;
+    }
+
+    public List<OrderPaymentBean> findAllByOrderId(Integer order_id) {
+        List<OrderPaymentBean> orderPaymentList = orderPaymentMapper.findAllByOrderId(order_id);
+        return orderPaymentList;
     }
 }

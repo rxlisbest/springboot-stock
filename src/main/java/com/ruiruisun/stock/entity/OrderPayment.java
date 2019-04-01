@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class OrderPayment {
     private int id;
+    private int buyer_id;
     private int user_id;
     private int order_id;
     private float money;

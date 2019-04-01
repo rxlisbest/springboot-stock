@@ -1,8 +1,13 @@
 package com.ruiruisun.stock.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.ruiruisun.stock.bean.OrderPaymentBean;
+import com.ruiruisun.stock.bean.OrderPaymentBuyerBean;
 import com.ruiruisun.stock.bean.OrderPaymentDayBean;
+import com.ruiruisun.stock.bean.PaginationBean;
 import com.ruiruisun.stock.entity.OrderPayment;
 import com.ruiruisun.stock.service.OrderPaymentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +26,26 @@ import java.util.Map;
 public class OrderPaymentController {
     @Resource
     private OrderPaymentService orderPaymentService;
+
+    @Autowired
+    PaginationBean paginationBean;
+
+    @GetMapping("/index")
+    public PageInfo<OrderPaymentBuyerBean> index(String date, Integer page, Integer payment_id) throws Exception {
+        if (date == null) {
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date today = new Date();
+            date = format.format(today);
+        }
+        if (page == null) {
+            page = 1;
+        }
+        if (payment_id == null) {
+            payment_id = 0;
+        }
+        PageInfo<OrderPaymentBuyerBean> goodsList = orderPaymentService.findPageByCondition(date, payment_id, page, paginationBean.getPageSize());
+        return goodsList;
+    }
 
     @GetMapping("/day")
     public List<OrderPaymentDayBean> day(String date) throws Exception {
@@ -41,6 +66,13 @@ public class OrderPaymentController {
             date = format.format(today);
         }
         List<Map> orderPaymentList = orderPaymentService.userDay(date);
+        return orderPaymentList;
+    }
+
+    @GetMapping("/all")
+    public List<OrderPaymentBean> all(Integer order_id) throws Exception {
+        order_id = order_id != null ? order_id : 0;
+        List<OrderPaymentBean> orderPaymentList = orderPaymentService.findAllByOrderId(order_id);
         return orderPaymentList;
     }
 }
