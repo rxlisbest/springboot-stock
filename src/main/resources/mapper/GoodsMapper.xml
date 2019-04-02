@@ -46,7 +46,7 @@
     </delete>
 
     <update id="updateAmountAndPrice" parameterType="com.ruiruisun.stock.entity.Goods">
-        UPDATE `goods` SET `price` = #{price}, `discount_price` = #{discount_price}, `amount` = `amount` + #{amount}, `update_time` = unix_timestamp(now()) WHERE id = #{id}
+        UPDATE `goods` SET `amount` = `amount` + #{amount}, `update_time` = unix_timestamp(now()) WHERE id = #{id}
     </update>
 
     <update id="updateAmount" parameterType="com.ruiruisun.stock.entity.Goods">

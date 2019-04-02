@@ -50,7 +50,7 @@ public class GoodsLogService {
     public int create(GoodsLog goodsLog) {
         Goods goods = new Goods();
         goods.setId(goodsLog.getGoods_id());
-        goods.setPrice(goodsLog.getPrice());
+//        goods.setPrice(goodsLog.getPrice());
         goods.setAmount(goodsLog.getAmount());
         goodsMapper.updateAmountAndPrice(goods);
 
