@@ -1,20 +1,15 @@
 package com.ruiruisun.stock.controller;
 
-import com.github.pagehelper.PageInfo;
 import com.ruiruisun.stock.bean.ChangePasswordUserBean;
-import com.ruiruisun.stock.bean.PaginationBean;
 import com.ruiruisun.stock.entity.User;
 import com.ruiruisun.stock.exception.BadRequestException;
 import com.ruiruisun.stock.exception.NotFoundException;
 import com.ruiruisun.stock.service.UserService;
 import com.ruiruisun.stock.utils.LocaleMessageUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @ResponseBody
 @RestController
