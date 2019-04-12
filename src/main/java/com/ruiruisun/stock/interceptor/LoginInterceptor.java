@@ -32,6 +32,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+        System.out.println(httpServletRequest.getRequestURI());
         String tokenHeader = httpServletRequest.getHeader(paramHeader);
         String tokenParameter = httpServletRequest.getParameter(paramParameter);
         if (tokenHeader == null && tokenParameter == null) {
