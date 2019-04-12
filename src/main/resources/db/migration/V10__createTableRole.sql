@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS  `api` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='接口表';
 
+TRUNCATE TABLE `api`;
 -- buyers
 INSERT INTO `api` (`id`, `uri`, `create_time`, `update_time`) VALUES (1, 'buyers/index', unix_timestamp(now()), 0);
 INSERT INTO `api` (`id`, `uri`, `create_time`, `update_time`) VALUES (2, 'buyers/view', unix_timestamp(now()), 0);
@@ -71,7 +72,7 @@ INSERT INTO `api` (`id`, `uri`, `create_time`, `update_time`) VALUES (37, 'payme
 INSERT INTO `api` (`id`, `uri`, `create_time`, `update_time`) VALUES (38, 'users/change_password', unix_timestamp(now()), 0);
 
 -- 接口角色表
-CREATE TABLE IF NOT EXISTS  `user_role` (
+CREATE TABLE IF NOT EXISTS  `role_api` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `api_id` INT(11) NOT NULL DEFAULT 0 COMMENT '接口ID',
   `role_id` INT(11) NOT NULL DEFAULT 0 COMMENT '角色ID',
@@ -79,6 +80,88 @@ CREATE TABLE IF NOT EXISTS  `user_role` (
   `update_time` BIGINT(20) NOT NULL DEFAULT 0 COMMENT '编辑时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='接口角色表';
+
+TRUNCATE TABLE `role_api`;
+-- role_id = 1
+-- buyers
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 1, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 2, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 3, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 4, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 5, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 6, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 7, unix_timestamp(now()), 0);
+-- goods_categories
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 8, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 9, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 10, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 11, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 12, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 13, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 14, unix_timestamp(now()), 0);
+-- goods
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 15, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 16, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 17, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 18, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 19, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 20, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 21, unix_timestamp(now()), 0);
+-- goods_logs
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 22, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 23, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 24, unix_timestamp(now()), 0);
+-- orders
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 25, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 26, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 27, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 28, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 29, unix_timestamp(now()), 0);
+-- order_goods
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 30, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 31, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 32, unix_timestamp(now()), 0);
+-- order_payments
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 33, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 34, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 35, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 36, unix_timestamp(now()), 0);
+-- payments
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 37, unix_timestamp(now()), 0);
+-- users
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (1, 38, unix_timestamp(now()), 0);
+-- role_id = 2
+-- goods_categories
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 13, unix_timestamp(now()), 0);
+-- goods
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 20, unix_timestamp(now()), 0);
+-- buyers
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 1, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 2, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 3, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 4, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 5, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 6, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 7, unix_timestamp(now()), 0);
+-- orders
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 25, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 26, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 27, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 28, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 29, unix_timestamp(now()), 0);
+-- order_goods
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 30, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 31, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 32, unix_timestamp(now()), 0);
+-- order_payments
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 33, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 34, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 35, unix_timestamp(now()), 0);
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 36, unix_timestamp(now()), 0);
+-- payments
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 37, unix_timestamp(now()), 0);
+-- users
+INSERT INTO `role_api` (`role_id`, `api_id`, `create_time`, `update_time`) VALUES (2, 38, unix_timestamp(now()), 0);
 
 -- 用户角色表
 CREATE TABLE IF NOT EXISTS  `user_role` (
@@ -89,3 +172,11 @@ CREATE TABLE IF NOT EXISTS  `user_role` (
   `update_time` BIGINT(20) NOT NULL DEFAULT 0 COMMENT '编辑时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='用户角色表';
+
+TRUNCATE TABLE `user_role`;
+INSERT INTO `user_role` (`user_id`, `role_id`, `create_time`, `update_time`) VALUES (1, 1, unix_timestamp(now()), 0);
+INSERT INTO `user_role` (`user_id`, `role_id`, `create_time`, `update_time`) VALUES (2, 2, unix_timestamp(now()), 0);
+
+TRUNCATE TABLE `user`;
+INSERT INTO `user`(`id`, `name`, `username`, `password`, `create_time`, `update_time`) VALUES (1, '冷库', 'lengku', 'e10adc3949ba59abbe56e057f20f883e', unix_timestamp(now()), 0);
+INSERT INTO `user`(`id`, `name`, `username`, `password`, `create_time`, `update_time`) VALUES (2, '市场', 'shichang', 'e10adc3949ba59abbe56e057f20f883e', unix_timestamp(now()), 0);

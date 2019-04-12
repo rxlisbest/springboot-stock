@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruiruisun.stock.mapper.UserRoleMapper">
+
+    <resultMap id="BaseResultMap" type="com.ruiruisun.stock.entity.UserRole">
+        <result column="id" jdbcType="INTEGER" property="id" javaType="int" />
+        <result column="user_id" jdbcType="INTEGER" property="user_id" javaType="int" />
+        <result column="role_id" jdbcType="INTEGER" property="role_id" javaType="int" />
+        <result column="create_time" jdbcType="BIGINT" property="create_time" javaType="int" />
+        <result column="update_time" jdbcType="BIGINT" property="update_time" javaType="int" />
+    </resultMap>
+
+    <select id="findUserApiRole" resultType="com.ruiruisun.stock.entity.UserRole">
+        SELECT ur.* FROM `user_role` ur
+        LEFT JOIN `role_api` ra ON ra.role_id = ur.role_id
+        LEFT JOIN `api` a ON a.id = ra.api_id
+        WHERE ur.user_id = #{user_id} AND a.uri = #{uri}
+    </select>
+</mapper>
