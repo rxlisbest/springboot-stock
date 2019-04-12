@@ -8,5 +8,7 @@ import java.util.List;
 @Mapper
 public interface UserRoleMapper {
 
-    List<UserRole> findUserApiRole(int user_id, String uri);
+    List<UserRole> findUserApiRole(Integer user_id, String uri);
+
+    List<UserRole> findAllByUserId(Integer user_id);
 }

@@ -12,8 +12,13 @@ public class UserRoleService {
     @Autowired
     UserRoleMapper userRoleMapper;
 
-    public List<UserRole> findUserApiRole(int user_id, String uri) {
-        List<UserRole> userRole = userRoleMapper.findUserApiRole(user_id, uri);
-        return userRole;
+    public List<UserRole> findUserApiRole(Integer user_id, String uri) {
+        List<UserRole> userRoleList = userRoleMapper.findUserApiRole(user_id, uri);
+        return userRoleList;
+    }
+
+    public List<UserRole> findAllByUserId(Integer user_id) {
+        List<UserRole> userRoleList = userRoleMapper.findAllByUserId(user_id);
+        return userRoleList;
     }
 }

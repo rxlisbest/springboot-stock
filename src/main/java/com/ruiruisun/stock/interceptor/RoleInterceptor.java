@@ -3,6 +3,7 @@ package com.ruiruisun.stock.interceptor;
 import com.ruiruisun.stock.entity.UserRole;
 import com.ruiruisun.stock.exception.UnauthorizedException;
 import com.ruiruisun.stock.service.UserRoleService;
+import com.ruiruisun.stock.utils.LocaleMessageUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,7 +25,7 @@ public class RoleInterceptor implements HandlerInterceptor {
         int user_id = (int) httpServletRequest.getAttribute("user_id");
         List<UserRole> userRoleList = userRoleService.findUserApiRole(user_id, uri);
         if (userRoleList == null || userRoleList.size() == 0) {
-            throw new UnauthorizedException("无权限访问");
+            throw new UnauthorizedException(LocaleMessageUtils.getMsg("role.without_auth"));
         }
         return true;
     }

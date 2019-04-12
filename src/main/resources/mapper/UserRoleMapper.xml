@@ -16,4 +16,8 @@
         LEFT JOIN `api` a ON a.id = ra.api_id
         WHERE ur.user_id = #{user_id} AND a.uri = #{uri}
     </select>
+
+    <select id="findAllByUserId" resultType="com.ruiruisun.stock.entity.UserRole">
+        SELECT * FROM `user_role` WHERE `user_id` = #{user_id}
+    </select>
 </mapper>
