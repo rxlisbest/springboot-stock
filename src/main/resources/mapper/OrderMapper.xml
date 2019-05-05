@@ -15,6 +15,10 @@
         select * from `order` ORDER BY `id` DESC
     </select>
 
+    <select id="findAllByDate" resultType="com.ruiruisun.stock.entity.Order">
+        select * from `order` WHERE DATE_FORMAT(FROM_UNIXTIME(create_time), '%Y-%m-%d') = #{date} ORDER BY `id` DESC
+    </select>
+
     <select id="month" resultType="com.ruiruisun.stock.bean.OrderMonthBean">
         SELECT SUM(total) AS total, DATE_FORMAT(FROM_UNIXTIME(create_time), '%Y-%m') AS month  FROM `order` WHERE DATE_FORMAT(FROM_UNIXTIME(create_time), '%Y') = #{year} GROUP BY DATE_FORMAT(FROM_UNIXTIME(create_time), '%Y-%m')
     </select>

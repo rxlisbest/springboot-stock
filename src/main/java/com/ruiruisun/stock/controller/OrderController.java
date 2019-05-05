@@ -31,11 +31,12 @@ public class OrderController {
     private BigDecimal total;
 
     @GetMapping("/index")
-    public PageInfo<Order> index(Integer page) throws Exception {
+    public PageInfo<Order> index(HttpServletRequest request, Integer page) throws Exception {
+        String date = request.getParameter("date");
         if (page == null) {
             page = 1;
         }
-        PageInfo<Order> orderList = orderService.findPage(page, paginationBean.getPageSize());
+        PageInfo<Order> orderList = orderService.findPage(date, page, paginationBean.getPageSize());
         return orderList;
     }
 

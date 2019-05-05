@@ -47,9 +47,9 @@ public class OrderService {
         return Order;
     }
 
-    public PageInfo<Order> findPage(int page, int pageSize) {
+    public PageInfo<Order> findPage(String date, int page, int pageSize) {
         PageHelper.startPage(page, pageSize);
-        List<Order> OrderList = orderMapper.findAll();
+        List<Order> OrderList = orderMapper.findAllByDate(date);
         PageInfo<Order> pageInfo = new PageInfo<>(OrderList);
         return pageInfo;
     }

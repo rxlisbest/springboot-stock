@@ -11,6 +11,8 @@ public interface OrderMapper {
 
     List<Order> findAll();
 
+    List<Order> findAllByDate(String date);
+
     Order findOne(int id);
 
     int create(Order goods);
