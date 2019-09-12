@@ -1,10 +1,7 @@
 package com.ruiruisun.stock.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.ruiruisun.stock.bean.OrderPaymentBean;
-import com.ruiruisun.stock.bean.OrderPaymentBuyerBean;
-import com.ruiruisun.stock.bean.OrderPaymentDayBean;
-import com.ruiruisun.stock.bean.PaginationBean;
+import com.ruiruisun.stock.bean.*;
 import com.ruiruisun.stock.entity.OrderPayment;
 import com.ruiruisun.stock.service.OrderPaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +70,16 @@ public class OrderPaymentController {
     public List<OrderPaymentBean> all(Integer order_id) throws Exception {
         order_id = order_id != null ? order_id : 0;
         List<OrderPaymentBean> orderPaymentList = orderPaymentService.findAllByOrderId(order_id);
+        return orderPaymentList;
+    }
+
+    @GetMapping("/buyer_debt")
+    public PageInfo<BuyerDebtBean> buyerDebt(String name, Integer page) throws Exception {
+        if (page == null) {
+            page = 1;
+        }
+        name = name != null ? name : "";
+        PageInfo<BuyerDebtBean> orderPaymentList = orderPaymentService.findBuyerDebt(name, page, paginationBean.getPageSize());
         return orderPaymentList;
     }
 }

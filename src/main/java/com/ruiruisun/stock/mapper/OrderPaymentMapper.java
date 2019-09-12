@@ -1,5 +1,6 @@
 package com.ruiruisun.stock.mapper;
 
+import com.ruiruisun.stock.bean.BuyerDebtBean;
 import com.ruiruisun.stock.bean.OrderPaymentBean;
 import com.ruiruisun.stock.bean.OrderPaymentBuyerBean;
 import com.ruiruisun.stock.bean.OrderPaymentDayBean;
@@ -24,4 +25,6 @@ public interface OrderPaymentMapper {
     List<OrderPaymentDayBean> day(String date);
 
     List<OrderPaymentDayBean> userDay(String date);
+
+    List<BuyerDebtBean> findBuyerDebt(String name);
 }

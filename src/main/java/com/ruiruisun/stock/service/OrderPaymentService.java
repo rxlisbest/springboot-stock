@@ -2,10 +2,7 @@ package com.ruiruisun.stock.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.ruiruisun.stock.bean.OrderGoodsDayBean;
-import com.ruiruisun.stock.bean.OrderPaymentBean;
-import com.ruiruisun.stock.bean.OrderPaymentBuyerBean;
-import com.ruiruisun.stock.bean.OrderPaymentDayBean;
+import com.ruiruisun.stock.bean.*;
 import com.ruiruisun.stock.entity.OrderGoods;
 import com.ruiruisun.stock.entity.OrderPayment;
 import com.ruiruisun.stock.entity.Payment;
@@ -95,5 +92,12 @@ public class OrderPaymentService {
     public List<OrderPaymentBean> findAllByOrderId(Integer order_id) {
         List<OrderPaymentBean> orderPaymentList = orderPaymentMapper.findAllByOrderId(order_id);
         return orderPaymentList;
+    }
+
+    public PageInfo<BuyerDebtBean> findBuyerDebt(String name, Integer page, Integer pageSize) {
+        PageHelper.startPage(page, pageSize);
+        List<BuyerDebtBean> orderPaymentList = orderPaymentMapper.findBuyerDebt(name);
+        PageInfo<BuyerDebtBean> pageInfo = new PageInfo<>(orderPaymentList);
+        return pageInfo;
     }
 }

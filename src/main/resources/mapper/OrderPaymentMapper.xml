@@ -3,14 +3,14 @@
 <mapper namespace="com.ruiruisun.stock.mapper.OrderPaymentMapper">
 
     <resultMap id="BaseResultMap" type="com.ruiruisun.stock.entity.OrderPayment">
-        <result column="id" jdbcType="INTEGER" property="id" javaType="int" />
-        <result column="user_id" jdbcType="INTEGER" property="user_id" javaType="int" />
-        <result column="order_id" jdbcType="INTEGER" property="order_id" javaType="int" />
-        <result column="money" jdbcType="FLOAT" property="money" javaType="float" />
-        <result column="payment_id" jdbcType="INTEGER" property="payment_id" javaType="int" />
-        <result column="payment_type" jdbcType="INTEGER" property="payment_type" javaType="int" />
-        <result column="create_time" jdbcType="BIGINT" property="create_time" javaType="int" />
-        <result column="update_time" jdbcType="BIGINT" property="update_time" javaType="int" />
+        <result column="id" jdbcType="INTEGER" property="id" javaType="int"/>
+        <result column="user_id" jdbcType="INTEGER" property="user_id" javaType="int"/>
+        <result column="order_id" jdbcType="INTEGER" property="order_id" javaType="int"/>
+        <result column="money" jdbcType="FLOAT" property="money" javaType="float"/>
+        <result column="payment_id" jdbcType="INTEGER" property="payment_id" javaType="int"/>
+        <result column="payment_type" jdbcType="INTEGER" property="payment_type" javaType="int"/>
+        <result column="create_time" jdbcType="BIGINT" property="create_time" javaType="int"/>
+        <result column="update_time" jdbcType="BIGINT" property="update_time" javaType="int"/>
     </resultMap>
 
     <select id="findAll" resultType="com.ruiruisun.stock.entity.OrderPayment">
@@ -27,26 +27,27 @@
 
     <select id="findPageByCondition" resultType="com.ruiruisun.stock.bean.OrderPaymentBuyerBean">
         SELECT
-          p.name, SUM(op.money) AS money, b.name AS buyer_name, payment_id
+        p.name, SUM(op.money) AS money, b.name AS buyer_name, payment_id
         FROM
-          `order_payment` op
+        `order_payment` op
         LEFT JOIN
-          `payment` p
+        `payment` p
         ON
-          p.id = op.payment_id
+        p.id = op.payment_id
         LEFT JOIN
-          `buyer` b
+        `buyer` b
         ON
-          b.id = op.buyer_id
+        b.id = op.buyer_id
         WHERE
-          DATE_FORMAT(FROM_UNIXTIME(op.create_time), '%Y-%m-%d') = #{date}
+        DATE_FORMAT(FROM_UNIXTIME(op.create_time), '%Y-%m-%d') = #{date}
         <if test="payment_id > 0">
-          AND `payment_id` = #{payment_id}
+            AND `payment_id` = #{payment_id}
         </if>
         GROUP BY op.buyer_id, payment_id
     </select>
 
-    <insert id="create" parameterType="com.ruiruisun.stock.entity.OrderPayment" useGeneratedKeys="true" keyProperty="id">
+    <insert id="create" parameterType="com.ruiruisun.stock.entity.OrderPayment" useGeneratedKeys="true"
+            keyProperty="id">
         INSERT INTO `order_payment` (`buyer_id`, `user_id`, `order_id`, `money`, `payment_id`, `payment_type`, `create_time`, `update_time`) VALUES (#{buyer_id}, #{user_id}, #{order_id}, #{money}, #{payment_id}, #{payment_type}, unix_timestamp(now()), 0)
     </insert>
 
@@ -56,5 +57,24 @@
 
     <select id="userDay" resultType="com.ruiruisun.stock.bean.OrderPaymentDayBean">
         SELECT `user_id`, `payment_id`, SUM(`money`) AS `money` FROM `order_payment` WHERE DATE_FORMAT(FROM_UNIXTIME(create_time), '%Y-%m-%d') = #{date} GROUP BY `user_id`, `payment_id` ORDER BY `money` DESC
+    </select>
+
+    <select id="findBuyerDebt" resultType="com.ruiruisun.stock.bean.BuyerDebtBean">
+        SELECT
+        b.name, SUM(op.money) AS money, max(op.`create_time`) AS max_create_time
+        FROM
+        `order_payment` op
+        LEFT JOIN
+        `payment` p
+        ON
+        p.id = op.payment_id
+        LEFT JOIN
+        `buyer` b
+        ON
+        b.id = op.buyer_id
+        WHERE
+        p.`name` = '欠款' AND
+        b.`name` LIKE CONCAT('%', #{name}, '%')
+        GROUP BY op.buyer_id
     </select>
 </mapper>

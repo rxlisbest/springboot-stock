@@ -5,7 +5,7 @@
     <resultMap id="BaseResultMap" type="com.ruiruisun.stock.entity.OrderPaymentLog">
         <result column="id" jdbcType="INTEGER" property="id" javaType="int" />
         <result column="user_id" jdbcType="INTEGER" property="user_id" javaType="int" />
-        <result column="payment_order_id" jdbcType="INTEGER" property="payment_order_id" javaType="int" />
+        <result column="order_payment_id" jdbcType="INTEGER" property="order_payment_id" javaType="int" />
         <result column="money" jdbcType="FLOAT" property="money" javaType="float" />
         <result column="payment_id" jdbcType="INTEGER" property="payment_id" javaType="int" />
         <result column="create_time" jdbcType="BIGINT" property="create_time" javaType="int" />
