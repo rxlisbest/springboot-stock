@@ -100,4 +100,11 @@ public class OrderPaymentService {
         PageInfo<BuyerDebtBean> pageInfo = new PageInfo<>(orderPaymentList);
         return pageInfo;
     }
+
+    public PageInfo<OrderPaymentDebtBean> findBuyerDebtByBuyerId(Integer buyer_id, Integer page, Integer pageSize) {
+        PageHelper.startPage(page, pageSize);
+        List<OrderPaymentDebtBean> orderPaymentList = orderPaymentMapper.findBuyerDebtByBuyerId(buyer_id);
+        PageInfo<OrderPaymentDebtBean> pageInfo = new PageInfo<>(orderPaymentList);
+        return pageInfo;
+    }
 }

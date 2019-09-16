@@ -1,9 +1,6 @@
 package com.ruiruisun.stock.mapper;
 
-import com.ruiruisun.stock.bean.BuyerDebtBean;
-import com.ruiruisun.stock.bean.OrderPaymentBean;
-import com.ruiruisun.stock.bean.OrderPaymentBuyerBean;
-import com.ruiruisun.stock.bean.OrderPaymentDayBean;
+import com.ruiruisun.stock.bean.*;
 import com.ruiruisun.stock.entity.OrderPayment;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -27,4 +24,6 @@ public interface OrderPaymentMapper {
     List<OrderPaymentDayBean> userDay(String date);
 
     List<BuyerDebtBean> findBuyerDebt(String name);
+
+    List<OrderPaymentDebtBean> findBuyerDebtByBuyerId(Integer buyer_id);
 }

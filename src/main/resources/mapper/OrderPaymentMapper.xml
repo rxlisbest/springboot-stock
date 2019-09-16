@@ -61,7 +61,7 @@
 
     <select id="findBuyerDebt" resultType="com.ruiruisun.stock.bean.BuyerDebtBean">
         SELECT
-        b.name, SUM(op.money) AS money, max(op.`create_time`) AS max_create_time
+        b.id, b.name, SUM(op.money) AS money, max(op.`create_time`) AS max_create_time, count(0) AS count
         FROM
         `order_payment` op
         LEFT JOIN
@@ -76,5 +76,25 @@
         p.`name` = '欠款' AND
         b.`name` LIKE CONCAT('%', #{name}, '%')
         GROUP BY op.buyer_id
+        ORDER BY max_create_time DESC
+    </select>
+
+    <select id="findBuyerDebtByBuyerId" resultType="com.ruiruisun.stock.bean.OrderPaymentDebtBean">
+        SELECT
+        op.id, op.order_id, b.name AS buyer_name,p.name AS payment_name, op.init_money, op.money, p.type, op.create_time, op.update_time
+        FROM
+        `order_payment` op
+        LEFT JOIN
+        `payment` p
+        ON
+        p.id = op.payment_id
+        LEFT JOIN
+        `buyer` b
+        ON
+        b.id = op.buyer_id
+        WHERE
+        p.`name` = '欠款' AND
+        op.buyer_id = #{buyer_id}
+        ORDER BY op.money DESC, op.create_time DESC
     </select>
 </mapper>

@@ -82,4 +82,13 @@ public class OrderPaymentController {
         PageInfo<BuyerDebtBean> orderPaymentList = orderPaymentService.findBuyerDebt(name, page, paginationBean.getPageSize());
         return orderPaymentList;
     }
+
+    @GetMapping("/buyer_debt_detail")
+    public PageInfo<OrderPaymentDebtBean> buyerDebtDetail(Integer buyer_id, Integer page) throws Exception {
+        if (page == null) {
+            page = 1;
+        }
+        PageInfo<OrderPaymentDebtBean> orderPaymentList = orderPaymentService.findBuyerDebtByBuyerId(buyer_id, page, paginationBean.getPageSize());
+        return orderPaymentList;
+    }
 }
