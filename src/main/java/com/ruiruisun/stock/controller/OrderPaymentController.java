@@ -2,15 +2,16 @@ package com.ruiruisun.stock.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.ruiruisun.stock.bean.*;
-import com.ruiruisun.stock.entity.OrderPayment;
+import com.ruiruisun.stock.entity.Order;
+import com.ruiruisun.stock.exception.BadRequestException;
 import com.ruiruisun.stock.service.OrderPaymentService;
+import com.ruiruisun.stock.utils.LocaleMessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,6 +27,8 @@ public class OrderPaymentController {
 
     @Autowired
     PaginationBean paginationBean;
+
+    private BigDecimal total;
 
     @GetMapping("/index")
     public PageInfo<OrderPaymentBuyerBean> index(String date, Integer page, Integer payment_id) throws Exception {
@@ -90,5 +93,27 @@ public class OrderPaymentController {
         }
         PageInfo<OrderPaymentDebtBean> orderPaymentList = orderPaymentService.findBuyerDebtByBuyerId(buyer_id, page, paginationBean.getPageSize());
         return orderPaymentList;
+    }
+
+    @PostMapping(value = "/repay")
+    public int repay(HttpServletRequest httpServletRequest, @RequestBody OrderPaymentRepayBean request) throws Exception {
+        Order order = request.getOrder();
+        List<CartGoodsBean> cartGoods = request.getCart();
+        total = new BigDecimal("0");
+        cartGoods.forEach(item -> {
+            BigDecimal price = new BigDecimal(Float.toString(item.getPrice()));
+            BigDecimal amount =  new BigDecimal(Float.toString(item.getOrder_amount()));
+            BigDecimal summary = price.multiply(amount);
+            System.out.println(summary);
+            total = total.add(summary);
+        });
+        BigDecimal jsTotal = new BigDecimal(Float.toString(order.getTotal()));
+        int result = jsTotal.compareTo(total);
+        if (result != 0) {
+            throw new BadRequestException(LocaleMessageUtils.getMsg("order.total_error"));
+        }
+        int userId = (int) httpServletRequest.getAttribute("user_id");
+        int id = orderPaymentService.repay(userId, request);
+        return id;
     }
 }

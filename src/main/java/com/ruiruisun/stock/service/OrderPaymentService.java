@@ -13,6 +13,7 @@ import com.ruiruisun.stock.mapper.PaymentMapper;
 import com.ruiruisun.stock.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -106,5 +107,25 @@ public class OrderPaymentService {
         List<OrderPaymentDebtBean> orderPaymentList = orderPaymentMapper.findBuyerDebtByBuyerId(buyer_id);
         PageInfo<OrderPaymentDebtBean> pageInfo = new PageInfo<>(orderPaymentList);
         return pageInfo;
+    }
+
+    @Transactional
+    public int repay(int orderPaymentId, OrderPaymentRepayBean orderPaymentRepay) {
+        List<OrderPaymentBean> payments = orderPaymentRepay.getPayments();
+        OrderPayment orderPaymentOne = orderPaymentMapper.findOne(orderPaymentId);
+
+        payments.forEach(item -> {
+            if (item.getMoney() > 0) {
+                OrderPayment orderPayment = new OrderPayment();
+                orderPayment.setBuyer_id(orderPaymentOne.getBuyer_id());
+                orderPayment.setUser_id(orderPaymentOne.getUser_id());
+                orderPayment.setOrder_id(orderPaymentOne.getOrder_id());
+                orderPayment.setMoney(item.getMoney());
+                orderPayment.setPayment_id(item.getId());
+                orderPayment.setPayment_type(item.getType());
+                orderPaymentMapper.create(orderPayment);
+            }
+        });
+        return orderPaymentOne.getId();
     }
 }
