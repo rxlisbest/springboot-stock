@@ -7,6 +7,7 @@
         <result column="user_id" jdbcType="INTEGER" property="user_id" javaType="int"/>
         <result column="order_id" jdbcType="INTEGER" property="order_id" javaType="int"/>
         <result column="money" jdbcType="FLOAT" property="money" javaType="float"/>
+        <result column="init_money" jdbcType="FLOAT" property="init_money" javaType="float"/>
         <result column="payment_id" jdbcType="INTEGER" property="payment_id" javaType="int"/>
         <result column="payment_type" jdbcType="INTEGER" property="payment_type" javaType="int"/>
         <result column="create_time" jdbcType="BIGINT" property="create_time" javaType="int"/>
