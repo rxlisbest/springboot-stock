@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,6 +31,8 @@ public class OrderPaymentService {
 
     @Autowired
     UserMapper userMapper;
+
+    private BigDecimal total;
 
 
     public PageInfo<OrderPaymentBuyerBean> findPageByCondition(String date, Integer payment_id, Integer page, Integer pageSize) {
@@ -110,10 +113,10 @@ public class OrderPaymentService {
     }
 
     @Transactional
-    public int repay(int orderPaymentId, OrderPaymentRepayBean orderPaymentRepay) {
+    public int repay(OrderPayment orderPaymentOne, OrderPaymentRepayBean orderPaymentRepay) {
         List<OrderPaymentBean> payments = orderPaymentRepay.getPayments();
-        OrderPayment orderPaymentOne = orderPaymentMapper.findOne(orderPaymentId);
 
+        total = new BigDecimal("0");
         payments.forEach(item -> {
             if (item.getMoney() > 0) {
                 OrderPayment orderPayment = new OrderPayment();
@@ -121,11 +124,23 @@ public class OrderPaymentService {
                 orderPayment.setUser_id(orderPaymentOne.getUser_id());
                 orderPayment.setOrder_id(orderPaymentOne.getOrder_id());
                 orderPayment.setMoney(item.getMoney());
+                orderPayment.setInit_money(item.getMoney());
                 orderPayment.setPayment_id(item.getId());
                 orderPayment.setPayment_type(item.getType());
                 orderPaymentMapper.create(orderPayment);
+
+                BigDecimal money = new BigDecimal(Float.toString(item.getMoney()));
+                total = total.add(money);
             }
         });
+        BigDecimal money = new BigDecimal(Float.toString(orderPaymentOne.getMoney()));
+        orderPaymentOne.setMoney(Float.valueOf(String.valueOf(money.subtract(total))));
+        orderPaymentMapper.update(orderPaymentOne);
         return orderPaymentOne.getId();
+    }
+
+    public OrderPayment findOne(int id) {
+        OrderPayment orderPayment = orderPaymentMapper.findOne(id);
+        return orderPayment;
     }
 }

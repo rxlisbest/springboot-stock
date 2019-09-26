@@ -3,6 +3,7 @@ package com.ruiruisun.stock.controller;
 import com.github.pagehelper.PageInfo;
 import com.ruiruisun.stock.bean.*;
 import com.ruiruisun.stock.entity.Order;
+import com.ruiruisun.stock.entity.OrderPayment;
 import com.ruiruisun.stock.exception.BadRequestException;
 import com.ruiruisun.stock.service.OrderPaymentService;
 import com.ruiruisun.stock.utils.LocaleMessageUtils;
@@ -97,23 +98,19 @@ public class OrderPaymentController {
 
     @PostMapping(value = "/repay")
     public int repay(HttpServletRequest httpServletRequest, @RequestBody OrderPaymentRepayBean request) throws Exception {
-        Order order = request.getOrder();
-        List<CartGoodsBean> cartGoods = request.getCart();
+        OrderPayment orderPayment = orderPaymentService.findOne(request.getOrderPaymentId());
+        List<OrderPaymentBean> orderPaymentList = request.getPayments();
         total = new BigDecimal("0");
-        cartGoods.forEach(item -> {
-            BigDecimal price = new BigDecimal(Float.toString(item.getPrice()));
-            BigDecimal amount =  new BigDecimal(Float.toString(item.getOrder_amount()));
-            BigDecimal summary = price.multiply(amount);
-            System.out.println(summary);
-            total = total.add(summary);
+        orderPaymentList.forEach(item -> {
+            BigDecimal money = new BigDecimal(Float.toString(item.getMoney()));
+            total = total.add(money);
         });
-        BigDecimal jsTotal = new BigDecimal(Float.toString(order.getTotal()));
+        BigDecimal jsTotal = new BigDecimal(Float.toString(orderPayment.getMoney()));
         int result = jsTotal.compareTo(total);
-        if (result != 0) {
-            throw new BadRequestException(LocaleMessageUtils.getMsg("order.total_error"));
+        if (result == -1) {
+            throw new BadRequestException(LocaleMessageUtils.getMsg("order_payment.total_exceed_error"));
         }
-        int userId = (int) httpServletRequest.getAttribute("user_id");
-        int id = orderPaymentService.repay(userId, request);
+        int id = orderPaymentService.repay(orderPayment, request);
         return id;
     }
 }

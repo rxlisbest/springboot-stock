@@ -48,7 +48,7 @@
 
     <insert id="create" parameterType="com.ruiruisun.stock.entity.OrderPayment" useGeneratedKeys="true"
             keyProperty="id">
-        INSERT INTO `order_payment` (`buyer_id`, `user_id`, `order_id`, `money`, `payment_id`, `payment_type`, `create_time`, `update_time`) VALUES (#{buyer_id}, #{user_id}, #{order_id}, #{money}, #{payment_id}, #{payment_type}, unix_timestamp(now()), 0)
+        INSERT INTO `order_payment` (`buyer_id`, `user_id`, `order_id`, `money`, `payment_id`, `payment_type`, `create_time`, `update_time`, `init_money`) VALUES (#{buyer_id}, #{user_id}, #{order_id}, #{money}, #{payment_id}, #{payment_type}, unix_timestamp(now()), 0, #{init_money})
     </insert>
 
     <select id="day" resultType="com.ruiruisun.stock.bean.OrderPaymentDayBean">
@@ -97,4 +97,8 @@
         op.buyer_id = #{buyer_id}
         ORDER BY op.money DESC, op.create_time DESC
     </select>
+
+    <update id="update" parameterType="com.ruiruisun.stock.entity.OrderPayment">
+        UPDATE `order_payment` SET `money` = #{money}, `update_time` = unix_timestamp(now()) WHERE id = #{id}
+    </update>
 </mapper>

@@ -86,6 +86,7 @@ public class OrderService {
                 orderPayment.setUser_id(userId);
                 orderPayment.setOrder_id(id);
                 orderPayment.setMoney(item.getMoney());
+                orderPayment.setInit_money(item.getMoney());
                 orderPayment.setPayment_id(item.getId());
                 orderPayment.setPayment_type(item.getType());
                 orderPaymentMapper.create(orderPayment);

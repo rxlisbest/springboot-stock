@@ -7,6 +7,7 @@ public class OrderPaymentBean {
     private int id;
     private String name;
     private float money;
+    private float init_money;
     private int type;
     private int create_time;
     private int update_time;

@@ -26,4 +26,6 @@ public interface OrderPaymentMapper {
     List<BuyerDebtBean> findBuyerDebt(String name);
 
     List<OrderPaymentDebtBean> findBuyerDebtByBuyerId(Integer buyer_id);
+
+    int update(OrderPayment orderPayment);
 }

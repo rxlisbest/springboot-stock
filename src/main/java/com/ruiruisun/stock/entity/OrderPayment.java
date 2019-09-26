@@ -9,6 +9,7 @@ public class OrderPayment {
     private int user_id;
     private int order_id;
     private float money;
+    private float init_money;
     private int payment_id;
     private int payment_type;
     private int create_time;
