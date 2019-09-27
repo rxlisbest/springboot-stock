@@ -5,6 +5,7 @@ import com.ruiruisun.stock.bean.*;
 import com.ruiruisun.stock.entity.Order;
 import com.ruiruisun.stock.entity.OrderPayment;
 import com.ruiruisun.stock.exception.BadRequestException;
+import com.ruiruisun.stock.exception.NotFoundException;
 import com.ruiruisun.stock.service.OrderPaymentService;
 import com.ruiruisun.stock.utils.LocaleMessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,15 @@ public class OrderPaymentController {
         }
         PageInfo<OrderPaymentBuyerBean> goodsList = orderPaymentService.findPageByCondition(date, payment_id, page, paginationBean.getPageSize());
         return goodsList;
+    }
+
+    @GetMapping("/view/{id}")
+    public OrderPayment view(@PathVariable int id) throws Exception {
+        OrderPayment orderPayment = orderPaymentService.findOne(id);
+        if (orderPayment == null) {
+            throw new NotFoundException(LocaleMessageUtils.getMsg("goods.not_exists"));
+        }
+        return orderPayment;
     }
 
     @GetMapping("/day")
