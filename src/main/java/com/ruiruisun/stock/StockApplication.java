@@ -9,10 +9,10 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @MapperScan("com.ruiruisun.stock.mapper")
 @SpringBootApplication
 public class StockApplication extends SpringBootServletInitializer {
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(StockApplication.class);
-    }
+//    @Override
+//    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+//        return builder.sources(StockApplication.class);
+//    }
     public static void main(String[] args) {
         SpringApplication.run(StockApplication.class, args);
     }
