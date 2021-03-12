@@ -2,6 +2,8 @@ package com.ruiruisun.stock.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.ruiruisun.stock.bean.GoodsLogDayBean;
+import com.ruiruisun.stock.bean.OrderGoodsDayBean;
 import com.ruiruisun.stock.entity.Goods;
 import com.ruiruisun.stock.entity.GoodsLog;
 import com.ruiruisun.stock.mapper.GoodsLogMapper;
@@ -72,5 +74,13 @@ public class GoodsLogService {
 
         int rows = goodsLogMapper.delete(goodsLog);
         return rows;
+    }
+
+    public PageInfo<GoodsLogDayBean> day(String date, int page, int pageSize) {
+        PageHelper.startPage(page, pageSize);
+        List<GoodsLogDayBean> goodsLogDayList = new ArrayList<>();
+        goodsLogDayList = goodsLogMapper.day(date);
+        PageInfo<GoodsLogDayBean> pageInfo = new PageInfo<>(goodsLogDayList);
+        return pageInfo;
     }
 }

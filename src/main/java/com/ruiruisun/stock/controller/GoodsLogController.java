@@ -1,6 +1,8 @@
 package com.ruiruisun.stock.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.ruiruisun.stock.bean.GoodsLogDayBean;
+import com.ruiruisun.stock.bean.OrderGoodsDayBean;
 import com.ruiruisun.stock.bean.PaginationBean;
 import com.ruiruisun.stock.entity.GoodsLog;
 import com.ruiruisun.stock.exception.BadRequestException;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @ResponseBody
 @RestController
@@ -66,5 +71,19 @@ public class GoodsLogController {
         }
         int rows = goodsLogService.delete(goodsLog);
         return rows;
+    }
+
+    @GetMapping("/day")
+    public PageInfo<GoodsLogDayBean> day(String date, Integer page) throws Exception {
+        if (page == null) {
+            page = 1;
+        }
+        if (date == null) {
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date today = new Date();
+            date = format.format(today);
+        }
+        PageInfo<GoodsLogDayBean> goodsLogDayList = goodsLogService.day(date, page, paginationBean.getPageSize());
+        return goodsLogDayList;
     }
 }

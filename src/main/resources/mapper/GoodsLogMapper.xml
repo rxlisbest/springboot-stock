@@ -40,4 +40,8 @@
     <delete id="delete" parameterType="com.ruiruisun.stock.entity.GoodsLog">
         DELETE FROM `goods_log` WHERE id = #{id}
     </delete>
+
+    <select id="day" resultType="com.ruiruisun.stock.bean.GoodsLogDayBean">
+        SELECT g.`name` AS goods_name, gl.goods_id, SUM(gl.price * gl.amount) AS total, SUM(gl.amount) AS amount FROM goods_log gl LEFT JOIN `goods` g ON g.id = gl.goods_id WHERE DATE_FORMAT(FROM_UNIXTIME(gl.create_time), '%Y-%m-%d') = #{date} GROUP BY gl.goods_id ORDER BY total DESC
+    </select>
 </mapper>

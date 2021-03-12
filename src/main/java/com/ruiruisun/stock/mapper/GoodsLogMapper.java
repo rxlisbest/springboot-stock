@@ -1,5 +1,7 @@
 package com.ruiruisun.stock.mapper;
 
+import com.ruiruisun.stock.bean.GoodsLogDayBean;
+import com.ruiruisun.stock.bean.OrderGoodsDayBean;
 import com.ruiruisun.stock.entity.GoodsLog;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -19,4 +21,6 @@ public interface GoodsLogMapper {
     int update(GoodsLog goods);
 
     int delete(GoodsLog goods);
+
+    List<GoodsLogDayBean> day(String date);
 }
