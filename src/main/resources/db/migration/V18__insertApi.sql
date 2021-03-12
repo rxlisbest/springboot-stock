@@ -1,4 +1,4 @@
-use `stock`;
+use `old_stock`;
 
 -- 订单支付方式详情
 set @api_id = 0;
